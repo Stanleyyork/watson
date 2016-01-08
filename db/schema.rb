@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108003957) do
+ActiveRecord::Schema.define(version: 20160108011637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,20 @@ ActiveRecord::Schema.define(version: 20160108003957) do
     t.integer  "num_entries"
     t.string   "url"
     t.string   "image_url"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "personalities", force: :cascade do |t|
+    t.string   "category"
+    t.string   "subcategory"
+    t.string   "attribute"
+    t.float    "percentage"
+    t.float    "sampling_error"
+    t.string   "channel_name"
+    t.integer  "user_id"
+    t.integer  "channel_id"
+    t.date     "date"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
