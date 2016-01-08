@@ -10,5 +10,16 @@
 
 <%= yield %>
 
+<h1>Tweet#index</h1>
+
+<div id="tweets">
+  <ul>
+    <% Tweets.public_tweets.each do |tweet| %>
+      <li><%= tweet.text %> <%= tweet.user.username %> </li>
+    <% end %>
+  </ul>
+</div>
+
+
 </body>
 </html>
