@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
 
   get '/books' => 'channels#booksIndex'
+  get '/personalities/new' => 'personalities#new'
 
   resources :users
 end

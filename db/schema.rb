@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108011637) do
+ActiveRecord::Schema.define(version: 20160108203115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 20160108011637) do
     t.string   "image_url"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "year"
   end
 
   create_table "personalities", force: :cascade do |t|
     t.string   "category"
     t.string   "subcategory"
-    t.string   "attribute"
     t.float    "percentage"
     t.float    "sampling_error"
     t.string   "channel_name"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 20160108011637) do
     t.date     "date"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "attribute_name"
+    t.integer  "year"
+    t.string   "title"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,8 +53,9 @@ ActiveRecord::Schema.define(version: 20160108011637) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "twitter_username"
   end
 
 end
