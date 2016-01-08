@@ -1,0 +1,14 @@
+<h1>Personality Dual Descriptions</h1>
+
+<%= form_for :personality_dual_descriptions, url: '/personality_descriptions' do |f| %>
+
+  category: <%= f.text_field :category %>
+  primary_subcategory: <%= f.text_field :primary_subcategory %>
+  secondary_subcategory: <%= f.text_field :secondary_subcategory %>
+  primary_high_secondary_high: <%= f.text_field :primary_high_secondary_high %>
+  primary_high_secondary_low: <%= f.text_field :primary_high_secondary_low %>
+  primary_low_secondary_high: <%= f.text_field :primary_low_secondary_high %>
+  primary_low_secondary_low: <%= f.text_field :primary_low_secondary_low %>
+  <%= f.submit "Submit" %>
+
+<% end %>
