@@ -71,7 +71,38 @@ pdBig5Array = [
 	]
 ]
 
+pddArray = [
+	['Helpful, cooperative, considerate, respectful, polite', 'Unpretentious, self-effacing', 'Effervescent, happy, friendly, merry, jovial', 'Soft-hearted, agreeable, obliging, humble, lenient', 'Sentimental, affectionate, sensitive, soft, passionate', 'Generous, pleasant, tolerant, peaceful, flexible', 'Genial, tactful, diplomatic, deep, idealistic', 'Dependent, simple', 'Strict, rigid, stern', 'Inconsiderate, impolite, distrustful, uncooperative, thoughtless', 'Bullheaded, abrupt, crude, combative, rough', 'Cynical, wary of others, reclusive, detached, impersonal', 'Critical, selfish, ill-tempered, antagonistic, grumpy', 'Insensitive, unaffectionate, passionless, unemotional', 'Shrewd, eccentric, individualistic', 'Coarse, tactless, curt, narrow-minded, callous'],
+	['Dependable, responsible, reliable, mannerly, considerate', 'Stern, strict, rigid', 'Ambitious, alert, firm, purposeful, competitive', 'Cautious, confident, punctual, formal, thrifty', 'Particular, high-strung', 'Thorough, steady, consistent, self-disciplined, logical', 'Sophisticated, perfectionistic, industrious, dignified, refined', 'Traditional, conventional', 'Unpretentious, self-effacing', 'Rash, uncooperative, unreliable, distrustful, thoughtless', 'Unruly, boisterous, reckless, devil-may-care, demonstrative', 'Indecisive, aimless, wishy-washy, noncommittal, unambitious', 'Scatterbrained, inconsistent, erratic, forgetful, impulsive', 'Informal, low-key', 'Unconventional, quirky', 'Foolhardy, illogical, immature, haphazard, lax'],
+	['Social, energetic, enthusiastic, communicative, vibrant', 'Opinionated, forceful, domineering, boastful, bossy', 'Active, competitive, persistent, ambitious, purposeful', 'Boisterous, mischievous, exhibitionistic, gregarious, demonstrative', 'Explosive, wordy, extravagant, volatile, flirtatious', 'Confident, bold, assured, uninhibited, courageous', 'Expressive, candid, dramatic, spontaneous, witty', 'Verbose, unscrupulous, pompous', 'Unaggressive, humble, submissive, timid, compliant', 'Skeptical, wary of others, seclusive, uncommunicative, unsociable', 'Restrained, serious, discreet, cautious, principled', 'Indirect, unenergetic, sluggish, non-persistent, vague', 'Guarded, pessimistic, secretive, cowardly', 'Tranquil, sedate, placid, impartial, unassuming', 'Inner-directed, introspective, meditative, contemplating, self-examining', 'Somber, meek, unadventurous, passive, apathetic'],
+	['Emotional, gullible, affectionate, sensitive, soft', 'Temperamental, irritable, quarrelsome, impatient, grumpy', 'Particular, high-strung', 'Compulsive, nosy, self-indulgent, forgetful, impulsive', 'Excitable, wordy, flirtatious, explosive, extravagant', 'Guarded, fretful, insecure, pessimistic, secretive', 'Excitable, passionate, sensual', 'Easily rattled, easily irked, apprehensive', 'Patient, relaxed, undemanding, down-to-earth', 'Unemotional, insensitive, unaffectionate, passionless', 'Rational, objective, steady, logical, decisive', 'Informal, low-key', 'Unself-conscious, weariless, indefatigible', 'Unassuming, unexcitable, placid, tranquil', 'Heartfelt, versatile, creative, intellectual, insightful', 'Imperturbable, insensitive'],
+	['Idealistic, diplomatic, deep, tactful, genial', 'Shrewd, eccentric, individualistic', 'Analytical, perceptive, informative, articulate, dignified', 'Unconventional, quirky', 'Worldly, theatrical, eloquent, inquisitive, intense', 'Introspective, meditative, contemplating, self-examining, inner-directed', 'Passionate, excitable, sensual', 'Creative, intellectual, insightful, versatile, inventive', 'Simple, dependent', 'Coarse, tactless, curt, narrow-minded, callous', 'Conventional, traditional', 'Shortsighted, foolhardy, illogical, immature, haphazard', 'Verbose, unscrupulous, pompous', 'Predictable, unimaginative, somber, apathetic, unadventurous', 'Easily rattled, easily irked, apprehensive', 'Imperturbable, insensitive']
+]
+
 big5NameArray = ["Agreeableness", "Conscientiousness", "Extraversion", "Emotional Range", "Openness"]
+pdBig5DualArray = ["Agreeableness", "Conscientiousness", "Extraversion", "Emotional Range", "Openness"]
+y = 0
+pddArray.each do |x|
+	a = 0
+	b = 1
+	c = 8
+	d = 9
+	(0..4).each do |z|
+	puts big5NameArray[y]
+		if(big5NameArray[y] != pdBig5DualArray[z])
+			PersonalityDualDescription.create(category: "Big 5",
+				primary_subcategory: big5NameArray[y],
+				secondary_subcategory: pdBig5DualArray[z],
+				primary_high_secondary_high: x[a], primary_high_secondary_low: x[b],
+				primary_low_secondary_high: x[c], primary_low_secondary_low: x[d])
+		a += 2
+		b += 2
+		c += 2
+		d += 2
+		end
+	end
+	y += 1
+end
 
 pdNeedArray.each do |x|
 	PersonalityDescription.create(category: "Need", attribute_name: x[0], high_description: x[1])
@@ -88,11 +119,4 @@ pdBig5Array.each do |big5Grouping|
 		low_term: x[1], low_description: x[0], high_term: x[3], high_description: x[4])
 	end
 	counter += 1
-end
-
-pddArray.each do |x|
-	PersonalityDualDescription.create(category: "Big 5", primary_subcategory: x[1],
-		secondary_subcategory: x[2], primary_high_secondary_high: x[3],
-		primary_high_secondary_low: x[4], primary_low_secondary_high: x[5],
-		primary_low_secondary_low: x[6])
 end
