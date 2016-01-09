@@ -32,9 +32,11 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use twitter API
 gem 'twitter', '~> 5.15'
+gem "koala", "~> 2.2"
+# use facebook graph API
 
 # Hide keys
-gem 'dotenv-rails'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
