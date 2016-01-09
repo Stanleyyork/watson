@@ -11,5 +11,8 @@ Rails.application.routes.draw do
   get '/books' => 'channels#booksIndex'
   get '/personalities/new' => 'personalities#new'
 
+  get '/users/:id/edit' => 'users#edit'
+  post '/edit' => 'users#twitter'
+
   resources :users
 end

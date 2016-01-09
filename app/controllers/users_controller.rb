@@ -6,6 +6,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def twitter 
+    @twitter_username = params['user']['twitter_username']
+    @user = current_user
+    @user.twitter_username = @twitter_username
+    @user.save
+    TwitterInfo.new.public_tweets(@twitter_username, current_user.id)
+  end
+
   def update
     @user = current_user
     user_params = params.require(:user).permit(:name,:email,:username)
@@ -19,6 +27,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    puts 'hello'
   end
 
   def destroy
@@ -43,12 +52,13 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to '/'
     else
+      puts user.errors.map{|k,v| "#{k} #{v}".capitalize}
       redirect_to '/signup'
     end
   end
 
   private
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation)
   end
 end

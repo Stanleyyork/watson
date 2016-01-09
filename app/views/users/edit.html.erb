@@ -1,2 +1,5 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+Twitter form
+<%= form_for :user, url: '/edit' do |f| %>
+	Twitter Username: <%= f.text_field :twitter_username %>
+	<%= f.submit "Submit" %>
+<% end %>
