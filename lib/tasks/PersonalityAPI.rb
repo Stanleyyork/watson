@@ -13,26 +13,31 @@ class PersonalityAPICall
 		#channel_name = Twitter || Facebook || Book || etc. (channel to analyze)
 		#year = 2015 || 2012 || etc. (year to anlayze)
 		#channel_url = "http://www.gutenberg.org/files/2701/2701.txt" - OPTIONAL unless Book
-		personality = WatsonAPIClient::PersonalityInsights.new(:user=>"fa30e7e1-7922-432c-ba1f-5bcde7c12e4d",
-		                                                   :password=>"GEyCx8gQf5kL",
-		                                                   :verify_ssl=>OpenSSL::SSL::VERIFY_NONE)
-		
-		if(channel_name.downcase == "book")
-			body = open(channel_url, :ssl_verify_mode=>OpenSSL::SSL::VERIFY_NONE)
-		elsif(channel_name.downcase == "twitter" || channel_name.downcase == "facebook")
-			body = Channel.where(user_id: user_id).where(name: channel_name).where(year: year).pluck(:content)
-		else
-			return "Channel not recognized"
-		end
+		if(Channel.where(user_id: user_id).where(name: channel_name).where(year: year).empty? || channel_name == "book")
+			personality = WatsonAPIClient::PersonalityInsights.new(:user=>"fa30e7e1-7922-432c-ba1f-5bcde7c12e4d",
+			                                                   :password=>"GEyCx8gQf5kL",
+			                                                   :verify_ssl=>OpenSSL::SSL::VERIFY_NONE)
+			
+			if(channel_name.downcase == "book")
+				body = open(channel_url, :ssl_verify_mode=>OpenSSL::SSL::VERIFY_NONE)
+			elsif(channel_name.downcase == "twitter" || channel_name.downcase == "facebook")
+				body = Channel.where(user_id: user_id).where(name: channel_name).where(year: year).pluck(:content)
+			else
+				return "Channel not recognized"
+			end
 
-		result = personality.profile(
-		  'Content-Type'     => "text/plain",
-		  'Accept'           => "application/json",
-		  'Accept-Language'  => "en",
-		  'Content-Language' => "en",
-		  'body'             => body
-		  )
-		ParseAndSave(JSON.parse(result.body), user_id, channel_name, year, title)
+			result = personality.profile(
+			  'Content-Type'     => "text/plain",
+			  'Accept'           => "application/json",
+			  'Accept-Language'  => "en",
+			  'Content-Language' => "en",
+			  'body'             => body
+			  )
+			ParseAndSave(JSON.parse(result.body), user_id, channel_name, year, title)
+		else
+			puts "#{channel_name} channel for #{year} already analyzed for this user"
+			return :notice => "#{channel_name} channel for #{year} already analyzed for this user"
+		end
 	end
 
 	def ParseAndSave(json_results, user_id, channel_name, year, title)
