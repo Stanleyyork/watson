@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108203115) do
+ActiveRecord::Schema.define(version: 20160108221611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,30 @@ ActiveRecord::Schema.define(version: 20160108203115) do
     t.string   "attribute_name"
     t.integer  "year"
     t.string   "title"
+  end
+
+  create_table "personality_descriptions", force: :cascade do |t|
+    t.string   "category"
+    t.string   "subcategory"
+    t.string   "attribute_name"
+    t.string   "low_term"
+    t.string   "low_description"
+    t.string   "high_term"
+    t.string   "high_description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "personality_dual_descriptions", force: :cascade do |t|
+    t.string   "category"
+    t.string   "primary_subcategory"
+    t.string   "secondary_subcategory"
+    t.string   "primary_high_secondary_high"
+    t.string   "primary_high_secondary_low"
+    t.string   "primary_low_secondary_high"
+    t.string   "primary_low_secondary_low"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade do |t|
