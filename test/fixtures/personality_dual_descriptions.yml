@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: MyString
+  primary_subcategory: MyString
+  secondary_subcategory: MyString
+  primary_high_secondary_high: MyString
+  primary_high_secondary_low: MyString
+  primary_low_secondary_high: MyString
+  primary_low_secondary_low: MyString
+
+two:
+  category: MyString
+  primary_subcategory: MyString
+  secondary_subcategory: MyString
+  primary_high_secondary_high: MyString
+  primary_high_secondary_low: MyString
+  primary_low_secondary_high: MyString
+  primary_low_secondary_low: MyString
