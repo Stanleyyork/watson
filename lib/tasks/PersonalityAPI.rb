@@ -4,9 +4,9 @@ require 'watson-api-client'
 class PersonalityAPICall
 
 	## EXAMPLES:
-	# Personality.Call(1,"twitter",1)
-	# Personalitiy.Call(17,"book",6,"http://www.gutenberg.org/files/2701/2701.txt")
-	# Personality.Call(6,"facebook", 9)
+	# Personality.Call(1,"twitter",2014,"Stanley's Twitter Account")
+	# Personalitiy.Call(17,"book",2015, "Pride and Prejudice", http://www.gutenberg.org/files/2701/2701.txt")
+	# Personality.Call(6,"facebook", 2014, "Stanley's Facebook Account")
 
 	def Call(user_id, channel_name, year, title, channel_url="")
 		#user_id = 1 || 7 || etc. (user's id)

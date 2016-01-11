@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: MyString
+  subcategory: MyString
+  attribute_name: MyString
+  low_term: MyString
+  low_description: MyString
+  high_term: MyString
+  high_description: MyString
+
+two:
+  category: MyString
+  subcategory: MyString
+  attribute_name: MyString
+  low_term: MyString
+  low_description: MyString
+  high_term: MyString
+  high_description: MyString
