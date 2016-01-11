@@ -38,7 +38,8 @@ class PersonalityAPICall
 	def ParseAndSave(json_results, user_id, channel_name, year, title)
 		not_saved_counter = 0
 		saved_counter = 0
-		other_attributes = {channel_name: channel_name, title: title, user_id: user_id, channel_id: Channel.find_by_name(channel_name).id, year: year}
+		channel_id_var = channel_name == "book" ? nil : Channel.find_by_name(channel_name).id
+		other_attributes = {channel_name: channel_name, title: title, user_id: user_id, channel_id: channel_id_var, year: year}
 		
 		# Set count values of each category groupings
 		needs_attribute_count = json_results['tree']['children'][1]['children'][0]['children'].count
