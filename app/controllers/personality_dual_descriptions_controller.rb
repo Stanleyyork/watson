@@ -1,0 +1,2 @@
+class PersonalityDualDescriptionsController < ApplicationController
+end
