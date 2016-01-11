@@ -1,6 +1,17 @@
 #use in other files: require './lib/tasks/PersonalityAPI'
 require 'watson-api-client'
 
+  #   t.string   "category"
+  #   t.string   "subcategory"
+  #   t.float    "percentage"
+  #   t.float    "sampling_error"
+  #   t.integer  "user_id"
+  #   t.string   "attribute_name"
+  #   t.string   "title"
+
+  #   t.integer  "bookmark_id"
+  #   t.grouping "string"
+
 class PersonalityAPICall
 
 	## EXAMPLES:
@@ -8,37 +19,66 @@ class PersonalityAPICall
 	# Personalitiy.Call(17,"book",6,"http://www.gutenberg.org/files/2701/2701.txt")
 	# Personality.Call(6,"facebook", 9)
 
-	def Call(user_id, channel_name, year, title, channel_url="")
-		#user_id = 1 || 7 || etc. (user's id)
-		#channel_name = Twitter || Facebook || Book || etc. (channel to analyze)
-		#year = 2015 || 2012 || etc. (year to anlayze)
-		#channel_url = "http://www.gutenberg.org/files/2701/2701.txt" - OPTIONAL unless Book
+	def Call(user_id, all)
 		personality = WatsonAPIClient::PersonalityInsights.new(:user=>"fa30e7e1-7922-432c-ba1f-5bcde7c12e4d",
 		                                                   :password=>"GEyCx8gQf5kL",
 		                                                   :verify_ssl=>OpenSSL::SSL::VERIFY_NONE)
 		
-		if(channel_name.downcase == "book")
-			body = open(channel_url, :ssl_verify_mode=>OpenSSL::SSL::VERIFY_NONE)
-		elsif(channel_name.downcase == "twitter" || channel_name.downcase == "facebook")
-			body = Channel.where(user_id: user_id).where(name: channel_name).where(year: year).pluck(:content).join(" ")
+		if(all.downcase == "all")
+			body = Bookmark.where(user_id: user_id).pluck(:bookmark_text).join(" ")
+			result = personality.profile(
+			  'Content-Type'     => "text/plain",
+			  'Accept'           => "application/json",
+			  'Accept-Language'  => "en",
+			  'Content-Language' => "en",
+			  'body'             => body
+			  )
+			ParseAndSave(JSON.parse(result.body), user_id, all)
+		elsif(all.downcase == "yearly")
+			(2010..2015).each do |year|
+				body_array = Bookmark.where(user_id: user_id).where(year: year).pluck(:bookmark_text).join(" ")
+				result = personality.profile(
+				  'Content-Type'     => "text/plain",
+				  'Accept'           => "application/json",
+				  'Accept-Language'  => "en",
+				  'Content-Language' => "en",
+				  'body'             => body
+				  )
+				ParseAndSave(JSON.parse(result.body), user_id, all)
+			end
+		elsif(all.downcase == "2015")
+			body_array = Bookmark.where(user_id: user_id).where(year: 2015).pluck(:bookmark_text).join(" ")
+			result = personality.profile(
+			  'Content-Type'     => "text/plain",
+			  'Accept'           => "application/json",
+			  'Accept-Language'  => "en",
+			  'Content-Language' => "en",
+			  'body'             => body
+			  )
+			ParseAndSave(JSON.parse(result.body), user_id, all)
+		elsif(all.downcase = "single")
+			Bookmark.where(user_id: user_id).all.each do |body|
+				result = personality.profile(
+				  'Content-Type'     => "text/plain",
+				  'Accept'           => "application/json",
+				  'Accept-Language'  => "en",
+				  'Content-Language' => "en",
+				  'body'             => body.bookmark_text
+				  )
+				ParseAndSave(JSON.parse(result.body), user_id, all, body.id)
+			end
 		else
-			return "Channel not recognized"
+			puts "invalid *all* input"
 		end
 
-		result = personality.profile(
-		  'Content-Type'     => "text/plain",
-		  'Accept'           => "application/json",
-		  'Accept-Language'  => "en",
-		  'Content-Language' => "en",
-		  'body'             => body
-		  )
-		ParseAndSave(JSON.parse(result.body), user_id, channel_name, year, title)
+
+		
 	end
 
-	def ParseAndSave(json_results, user_id, channel_name, year, title)
+	def ParseAndSave(json_results, user_id, all, bookmark_id='')
 		not_saved_counter = 0
 		saved_counter = 0
-		other_attributes = {channel_name: channel_name, title: title, user_id: user_id, channel_id: Channel.find_by_name(channel_name).id, year: year}
+		other_attributes = {title: "#{User.find(user_id).username}'s Personality #{all}", user_id: user_id, grouping: all, bookmark_id: bookmark_id}
 		
 		# Set count values of each category groupings
 		needs_attribute_count = json_results['tree']['children'][1]['children'][0]['children'].count
@@ -54,7 +94,7 @@ class PersonalityAPICall
 									 percentage: attrib_object['percentage'],
 									 sampling_error: attrib_object['sampling_error']}
 				personalityEntry = Personality.new(big_5_json_object)
-				personalityEntry.attributes = other_attributes
+				personalityEntry.update_attributes(other_attributes)
 				personalityEntry.save ? saved_counter += 1 : not_saved_counter += 1
 			end
 		end
@@ -74,7 +114,7 @@ class PersonalityAPICall
 									 percentage: attrib_object['percentage'],
 									 sampling_error: attrib_object['sampling_error']}
 				personalityEntry = Personality.new(needs_value_json_object)
-				personalityEntry.attributes = other_attributes
+				personalityEntry.update_attributes(other_attributes)
 				personalityEntry.save ? saved_counter += 1 : not_saved_counter += 1
 			end
 
