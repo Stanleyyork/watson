@@ -51,7 +51,8 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    puts 'hello'
+    @twitter_count = Channel.where(user_id: current_user.id).where(name: "twitter").count
+    @facebook_count = Channel.where(user_id: current_user.id).where(name: "Facebook").count
   end
 
   def destroy
