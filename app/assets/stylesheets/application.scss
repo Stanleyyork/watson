@@ -15,14 +15,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-$primary-color: #FFDCDC
+$primary-color: #FFDCDC;
+$container-color: #E23246;
 
 body {
 	background-color: $primary-color;
 }
 
 .container {
-	background-color: #E23246;
+	background-color: $container-color;
 	box-shadow: 0px 2px 10px #7F1B1B;
 }
 
