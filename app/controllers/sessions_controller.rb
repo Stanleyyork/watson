@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+
   end
 
   def create
@@ -13,6 +14,7 @@ class SessionsController < ApplicationController
       redirect_to '/'
     else
     # If user's login doesn't work, send them back to the login form.
+      flash[:notice] = "Wrong email or password"
       redirect_to '/login'
     end
   end
