@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of :email, :notice => "Email already taken"
 	validates :username, length: {minimum: 3, maximum: 15}, :uniqueness => { :case_sensitive => false},
 	  format: {
-	    with: /^[a-zA-Z0-9_-]+$/,
+	    with: /\A[a-zA-Z0-9_-]+\z/,
 	    message: 'Must be formatted correctly (no spaces)'
 	  }
 
