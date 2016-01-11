@@ -1,4 +1,7 @@
 class TwitterInfo
+
+  # Twitter API client setup
+  
   def public_tweets(username, user_id)
     puts 'public_tweets'
     client ||= Twitter::REST::Client.new do |config|
@@ -16,7 +19,7 @@ class TwitterInfo
       response.empty? ? collection.flatten : collect_with_max_id(collection, response.last.id - 1, &block)
     end
 
-    def client.get_all_tweets(user)
+    def client.get_all_tweets(user, user_id)
       collect_with_max_id do |max_id|
         options = {count: 200, include_rts: true}
         options[:max_id] = max_id unless max_id.nil?
@@ -24,7 +27,7 @@ class TwitterInfo
       end
     end
     
-    results = client.get_all_tweets(username)
+    results = client.get_all_tweets(username, user_id)
     save_data(results, user_id)
   end
 
