@@ -25,7 +25,7 @@ pdValueArray = [
 	["Conservation / Tradition",	"Emphasize self-restriction, order, and resistance to change."],
 	["Hedonism / Taking pleasure in life",	"Seek pleasure and sensuous gratification for themselves."],
 	["Self-enhancement / Achieving success",	"Seek personal success for themselves."],
-	["Open to change / Excitement",	"Emphasize independent action, thought, and feeling, as well as a readiness for new experiences."]
+	["Openness to change / Excitement",	"Emphasize independent action, thought, and feeling, as well as a readiness for new experiences."]
 ]
 
 pdBig5Array = [
@@ -47,19 +47,19 @@ pdBig5Array = [
 	],
 	[
 		["You appreciate a relaxed pace in life.",	"Laid-back"	"Activity level"	,"Energetic"	,"You enjoy a fast-paced, busy schedule with many activities."],
-		["You prefer to listen than to talk, especially in group settings."	"Demure"	,"Assertiveness",	"Assertive",	"You tend to speak up and take charge of situations, and you are comfortable leading groups."],
-		["You are generally serious and do not joke much."	"Solemn"	,"Cheerfulness"	,"Cheerful",	"You are a joyful person and share that joy with the world."],
+		["You prefer to listen than to talk, especially in group settings."	,"Demure"	,"Assertiveness",	"Assertive",	"You tend to speak up and take charge of situations, and you are comfortable leading groups."],
+		["You are generally serious and do not joke much."	,"Solemn"	,"Cheerfulness"	,"Cheerful",	"You are a joyful person and share that joy with the world."],
 		["You prefer activities that are quiet, calm, and safe."	,"Calm-seeking"	,"Excitement-seeking"	,"Excitement-seeking",	"You are excited by taking risks and feel bored without lots of action going on."],
 		["You are a private person and do not let many people in."	,"Reserved",	"Friendliness",	"Outgoing",	"You make friends easily and feel comfortable around other people."],
 		["You have a strong desire to have time to yourself."	,"Independent",	"Gregariousness"	,"Sociable",	"You enjoy being in the company of others."],
 	],
 	[
 		["It takes a lot to get you angry."	,"Mild-tempered"	,"Anger"	,"Fiery",	"You have a fiery temper, especially when things do not go your way."],
-		["You tend to feel calm and self-assured."	"Self-assured",	"Anxiety",	"Prone to worry"	,"You tend to worry about things that might happen."],
+		["You tend to feel calm and self-assured."	,"Self-assured",	"Anxiety",	"Prone to worry"	,"You tend to worry about things that might happen."],
 		["You are generally comfortable with yourself as you are.",	"Content",	"Depression"	,"Melancholy",	"You think quite often about the things you are unhappy about."],
 		["You have control over your desires, which are not particularly intense.",	"Self-controlled",	"Immoderation",	"Hedonistic"	,"You feel your desires strongly and are easily tempted by them."],
 		["You are hard to embarrass and are self-confident most of the time.",	"Confident",	"Self-consciousness"	,"Self-conscious"	,"You are sensitive about what others might be thinking of you."],
-		["You handle unexpected events calmly and effectively."	"Calm under pressure",	"Vulnerability"	,"Susceptible to stress",	"You are easily overwhelmed in stressful situations."]
+		["You handle unexpected events calmly and effectively."	,"Calm under pressure",	"Vulnerability"	,"Susceptible to stress",	"You are easily overwhelmed in stressful situations."]
 	],
 	[
 		["You enjoy familiar routines and prefer not to deviate from them."	,"Consistent"	,"Adventurousness",	"Adventurous",	"You are eager to experience new things."],

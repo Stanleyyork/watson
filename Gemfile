@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'watson-api-client'
-
+gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
@@ -32,9 +32,14 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use twitter API
 gem 'twitter', '~> 5.15'
+# use facebook graph API
+gem "koala", "~> 2.2"
+
+# facebook oauth
+gem 'omniauth-facebook'
 
 # Hide keys
-gem 'dotenv-rails'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -42,6 +47,7 @@ gem 'dotenv-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails', '~> 3.0'
 end
 
 group :development do
