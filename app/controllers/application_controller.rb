@@ -17,16 +17,5 @@ class ApplicationController < ActionController::Base
     current_user
     render template: "layouts/homepage.html.erb"
   end
-
-  def facebook
-    if params.has_key? :code
-      @oauth = Koala::Facebook::OAuth.new(ENV["FB_APP_ID"], ENV["FB_APP_SECRET"], "http://localhost:3000/")
-      access_token = @oauth.get_access_token(params[:code])
-      @graph = Koala::Facebook::API.new(access_token)
-      feed = @graph.get_connections("me", "feed") 
-      feed_length = (feed.map { |post| (post["message"] || "").length }).sum
-      puts "total feed length = " + feed_length.to_s
-    end
-  end
   
 end

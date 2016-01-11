@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 	    with: /\A[a-zA-Z0-9_-]+\z/,
 	    message: 'Must be formatted correctly (no spaces)'
 	  }, unless: -> { from_omniauth? }
-  
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
