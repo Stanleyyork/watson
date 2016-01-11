@@ -32,8 +32,11 @@ class SessionsController < ApplicationController
       end
     else
       puts "Still need to write code for this"
+      @user = current_user
       user = User.from_omniauth(env["omniauth.auth"])
-      current_user.facebook_access_token = user.oauth_token
+      @user.facebook_access_token = user.oauth_token
+      @user.save
+      redirect_to edit_user_path(current_user)
     end  
   end
 
