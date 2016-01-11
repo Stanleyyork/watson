@@ -1,12 +1,11 @@
-<h1>Signup!</h1>
+<h1>Signup</h1>
 
 <%= form_for :user, url: '/users' do |f| %>
-	
 	Username: <%= f.text_field :username %>
-  Name: <%= f.text_field :name %>
-  Email: <%= f.text_field :email %>
-  Password: <%= f.password_field :password %>
-  Password Confirmation: <%= f.password_field :password_confirmation %>
-  <%= f.submit "Submit" %>
-
+	Name: <%= f.text_field :name %>
+	Email: <%= f.text_field :email %>
+	Password: <%= f.password_field :password %>
+	Password Confirmation: <%= f.password_field :password_confirmation %>
+	<%= f.submit "Submit" %><br><br>
+	<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
 <% end %>

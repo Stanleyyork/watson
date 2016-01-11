@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
         # Save the user id inside the browser cookie. This is how we keep the user 
         # logged in when they navigate around our website.
         session[:user_id] = user.id
-        redirect_to '/'
+        redirect_to '/settings'
       else
       # If user's login doesn't work, send them back to the login form.
         flash[:notice] = "Wrong email or password"
@@ -28,8 +28,7 @@ class SessionsController < ApplicationController
         redirect_to edit_user_path(current_user)
       else
         puts "User couldn't save"
-        redirect_to '/'
-      
+        redirect_to '/login'
       end
     end  
   end

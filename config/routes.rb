@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
   get '/facebook' => 'application#facebook'
+  get '/settings' => 'users#edit'
   get '/users/:id/edit' => 'users#edit'
   post '/twitter' => 'users#twitter'
   get '/facebookpostsretrieval' => 'users#facebook', as: 'facebook_posts_retreival'

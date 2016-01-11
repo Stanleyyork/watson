@@ -62,7 +62,7 @@ class UsersController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to user_path(current_user)
+      redirect_to '/signup'
     end
   end
 
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id
-      redirect_to '/'
+      redirect_to '/settings'
     else
       flash[:notice] = user.errors.map{|k,v| "#{k} #{v}".capitalize}
       redirect_to '/signup'
