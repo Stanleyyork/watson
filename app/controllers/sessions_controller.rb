@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
         flash[:notice] = "Wrong email or password"
         redirect_to '/login'
       end
-    else
+    elsif(!current_user)
       user = User.from_omniauth(env["omniauth.auth"])
       session[:user_id] = user.id
       access_token = user.oauth_token
@@ -30,6 +30,10 @@ class SessionsController < ApplicationController
         puts "User couldn't save"
         redirect_to '/login'
       end
+    else
+      puts "Still need to write code for this"
+      user = User.from_omniauth(env["omniauth.auth"])
+      current_user.facebook_access_token = user.oauth_token
     end  
   end
 
