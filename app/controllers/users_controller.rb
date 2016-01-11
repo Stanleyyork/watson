@@ -43,6 +43,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to '/'
     else
+      flash[:notice] = user.errors.map{|k,v| "#{k} #{v}".capitalize}
       redirect_to '/signup'
     end
   end
