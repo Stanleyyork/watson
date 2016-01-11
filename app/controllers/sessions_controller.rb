@@ -22,18 +22,27 @@ class SessionsController < ApplicationController
       user = User.from_omniauth(env["omniauth.auth"])
       session[:user_id] = user.id
       access_token = user.oauth_token
-      @graph = Koala::Facebook::API.new(access_token)
-      feed = @graph.get_connections("me", "feed")
-      puts user.to_yaml
-      user.update_attribute(:facebook_posts, (feed.map { |post| (post["message"] || "") }).join(" "))
-      puts user.to_yaml
-      feed_length = user.facebook_posts.length
-      puts "total feed length = " + feed_length.to_s
+      user.facebook_access_token = access_token
+      # @graph = Koala::Facebook::API.new(access_token)
+      # if(Channel.where(user_id: user.id).first.nil?)
+      #   feed = @graph.get_connections("me", "feed")
+      #   puts user.to_yaml
+      #   feed.each do |f|
+      #     puts f
+      #     c = Channel.new(content: f['message'])
+      #     c.user_id = user.id
+      #     c.name = "Facebook"
+      #     c.date = f['created_time']
+      #     c.num_entries = 1
+      #     c.save
+      #   end
+      # end
       if user.save
         redirect_to '/'
       else
         puts "User couldn't save"
         redirect_to '/'
+      
       end
     end  
   end
