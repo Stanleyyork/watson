@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def homepage
-
+    current_user
     render template: "layouts/homepage.html.erb"
   end
   
