@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
       Personality.personality(current_user.id, "Facebook", 2015, "#{current_user.name}'s Facebook Account")
     else
-      flash[:notice] = "No twitter content to analyze"
+      flash[:notice] = "No facebook content to analyze"
     end
     redirect_to user_path(current_user)
   end
