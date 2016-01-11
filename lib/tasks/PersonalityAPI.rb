@@ -21,6 +21,7 @@ class PersonalityAPICall
 			body = open(channel_url, :ssl_verify_mode=>OpenSSL::SSL::VERIFY_NONE)
 		elsif(channel_name.downcase == "twitter" || channel_name.downcase == "facebook")
 			body = Channel.where(user_id: user_id).where(name: channel_name).where(year: year).pluck(:content).join(" ")
+			puts body.length
 		else
 			return "Channel not recognized"
 		end
@@ -38,8 +39,8 @@ class PersonalityAPICall
 	def ParseAndSave(json_results, user_id, channel_name, year, title)
 		not_saved_counter = 0
 		saved_counter = 0
-		channel_id_var = channel_name == "book" ? nil : Channel.find_by_name(channel_name).id
-		other_attributes = {channel_name: channel_name, title: title, user_id: user_id, channel_id: channel_id_var, year: year}
+		channel_id_var = channel_name.downcase == "book" ? nil : Channel.find_by_name(channel_name).id
+		other_attributes = {channel_name: channel_name, title: title, user_id: user_id, year: year}
 		
 		# Set count values of each category groupings
 		needs_attribute_count = json_results['tree']['children'][1]['children'][0]['children'].count

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/users/:id/edit' => 'users#edit'
   post '/twitter' => 'users#twitter'
   get '/facebookpostsretrieval' => 'users#facebook', as: 'facebook_posts_retreival'
+  get '/analyzedata' => 'users#analyze_personality', as: 'analyze_data'
 
   resources :sessions, only: [:create, :destroy]
   resources :users

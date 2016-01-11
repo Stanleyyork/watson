@@ -18,3 +18,8 @@
 <% else %>
 	<%= "Already pulled Facebook posts" %>
 <% end %>
+<br>
+
+<% if (@twitter_count > 0 || @facebook_count > 0) %>
+	<%= link_to "Analyze Twitter and Facebook Data", analyze_data_path %>
+<% end %>
