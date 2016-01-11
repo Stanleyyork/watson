@@ -6,5 +6,5 @@
   Password: <%= password_field_tag :password %>
   <%= submit_tag "Submit" %>
 	
-<a href="<%= @facebook_login_url %>">Log In with Facebook</a>
+  <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
 <% end %>

@@ -32,8 +32,11 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use twitter API
 gem 'twitter', '~> 5.15'
-gem "koala", "~> 2.2"
 # use facebook graph API
+gem "koala", "~> 2.2"
+
+# facebook oauth
+gem 'omniauth-facebook'
 
 # Hide keys
 gem 'dotenv-rails', :groups => [:development, :test]
