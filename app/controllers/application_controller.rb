@@ -14,9 +14,8 @@ class ApplicationController < ActionController::Base
   end
 
   def homepage
-    @oauth = Koala::Facebook::OAuth.new(ENV["FB_APP_ID"], ENV["FB_APP_SECRET"], "http://localhost:3000/")
-    @facebook_login_url = @oauth.url_for_oauth_code(:permissions => "user_posts")
     if params.has_key? :code
+      @oauth = Koala::Facebook::OAuth.new(ENV["FB_APP_ID"], ENV["FB_APP_SECRET"], "http://localhost:3000/")
       access_token = @oauth.get_access_token(params[:code])
       @graph = Koala::Facebook::API.new(access_token)
       feed = @graph.get_connections("me", "feed") 
