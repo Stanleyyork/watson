@@ -19,7 +19,23 @@ class UsersController < ApplicationController
       flash[:notice] = "Already stored tweets"
       redirect_to edit_user_path(current_user)
     end
+  end
 
+  def facebook
+    @graph = Koala::Facebook::API.new(current_user.facebook_access_token)
+    if(Channel.where(user_id: current_user.id).first.nil?)
+      feed = @graph.get_connections("me", "feed")
+      feed.each do |f|
+        puts f
+        c = Channel.new(content: f['message'])
+        c.user_id = current_user.id
+        c.name = "Facebook"
+        c.date = f['created_time']
+        c.num_entries = 1
+        c.save
+      end
+    end
+    redirect_to edit_user_path(current_user)
   end
 
   def update

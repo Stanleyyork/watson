@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
   get '/facebook' => 'application#facebook'
   get '/users/:id/edit' => 'users#edit'
-  post '/edit' => 'users#twitter'
+  post '/twitter' => 'users#twitter'
+  get '/facebookpostsretrieval' => 'users#facebook', as: 'facebook_posts_retreival'
 
   resources :sessions, only: [:create, :destroy]
   resources :users
