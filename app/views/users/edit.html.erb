@@ -1,5 +1,20 @@
-Twitter form
-<%= form_for :user, url: '/edit' do |f| %>
-	Twitter Username: <%= f.text_field :twitter_username %>
-	<%= f.submit "Submit" %>
+<% if @twitter_count == 0 %>
+	<%= form_for :user, url: '/twitter' do |f| %>
+		Twitter Username: <%= f.text_field :twitter_username %>
+		<%= f.submit "Retrieve Tweets" %>
+	<% end %>
+<% else %>
+	<%= "Already pulled Tweets" %>
+<% end %>
+<br>
+
+<% if @facebook_count == 0 %>
+	Facebook
+	<% if current_user.facebook_access_token.nil? %>
+		<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+	<% else %>
+		<%= link_to "Retrieve Posts", facebook_posts_retreival_path %>
+	<% end %>
+<% else %>
+	<%= "Already pulled Facebook posts" %>
 <% end %>
