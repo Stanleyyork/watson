@@ -36,6 +36,9 @@ gem 'twitter', '~> 5.15'
 # Hide keys
 gem 'dotenv-rails'
 
+# Use bootstrap for styling
+gem 'bootstrap-sass', '~> 3.3.6'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
