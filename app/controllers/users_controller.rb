@@ -86,6 +86,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user
+      redirect_to '/settings'
+    end
     @user = User.new
   end
 
