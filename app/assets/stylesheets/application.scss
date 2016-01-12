@@ -113,3 +113,22 @@ body {
 	margin-left: -15px;
 	margin-right: -15px;
 }
+
+.alert {
+	margin-bottom: 0px;
+}
+
+.wrapper {
+	overflow:auto;
+  padding-bottom: 50px; /* must be same height as the footer */
+}
+
+.footer {
+  position: relative;
+  margin-top: -50px; /* negative value of footer height */
+  height: 50px;
+  clear:both;
+  background-color: $watson-red;
+  color: $watson-pink;
+  font-family: 'jaapokkiregular'
+}
