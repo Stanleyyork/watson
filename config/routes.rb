@@ -14,10 +14,10 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
   get '/facebook' => 'application#facebook'
-  get '/settings' => 'users#edit'
-  get '/users/:id/edit' => 'users#edit'
+  get '/settings' => 'users#edit', as: 'edit_user'
   post '/twitter' => 'users#twitter'
   get '/facebookpostsretrieval' => 'users#facebook', as: 'facebook_posts_retreival'
+  get '/analyzedata' => 'users#analyze_personality', as: 'analyze_data'
 
   resources :sessions, only: [:create, :destroy]
   resources :users
