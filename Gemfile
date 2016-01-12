@@ -41,6 +41,9 @@ gem 'omniauth-facebook'
 # Hide keys
 gem 'dotenv-rails', :groups => [:development, :test]
 
+# Use paperclip for image upload
+gem "paperclip", "~> 4.3"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
