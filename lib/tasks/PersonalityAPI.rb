@@ -8,10 +8,9 @@ class PersonalityAPICall
 	# Personalitiy.Call(17,"book",2015, "Pride and Prejudice", http://www.gutenberg.org/files/2701/2701.txt")
 	# Personality.Call(6,"facebook", 2014, "Stanley's Facebook Account")
 
-	def Call(user_id, channel_name, year, title, channel_url="")
+	def Call(user_id, channel_name, title, channel_url="")
 		#user_id = 1 || 7 || etc. (user's id)
 		#channel_name = Twitter || Facebook || Book || etc. (channel to analyze)
-		#year = 2015 || 2012 || etc. (year to anlayze)
 		#channel_url = "http://www.gutenberg.org/files/2701/2701.txt" - OPTIONAL unless Book
 		personality = WatsonAPIClient::PersonalityInsights.new(:user=>"fa30e7e1-7922-432c-ba1f-5bcde7c12e4d",
 		                                                   :password=>"GEyCx8gQf5kL",
@@ -20,27 +19,27 @@ class PersonalityAPICall
 		if(channel_name.downcase == "book")
 			body = open(channel_url, :ssl_verify_mode=>OpenSSL::SSL::VERIFY_NONE)
 		elsif(channel_name.downcase == "twitter" || channel_name == "Facebook")
-			body = Channel.where(user_id: user_id).where(name: channel_name).where(year: year).pluck(:content).join(" ")
-			puts body.length
+			body = Channel.where(user_id: user_id).where(name: channel_name).pluck(:content).join(" ")
 		else
 			return "Channel not recognized"
 		end
-
-		result = personality.profile(
-		  'Content-Type'     => "text/plain",
-		  'Accept'           => "application/json",
-		  'Accept-Language'  => "en",
-		  'Content-Language' => "en",
-		  'body'             => body
-		  )
-		ParseAndSave(JSON.parse(result.body), user_id, channel_name, year, title)
+		if(body.length != 0)
+			result = personality.profile(
+			  'Content-Type'     => "text/plain",
+			  'Accept'           => "application/json",
+			  'Accept-Language'  => "en",
+			  'Content-Language' => "en",
+			  'body'             => body
+			  )
+			ParseAndSave(JSON.parse(result.body), user_id, channel_name, title)
+		end
 	end
 
-	def ParseAndSave(json_results, user_id, channel_name, year, title)
+	def ParseAndSave(json_results, user_id, channel_name, title)
 		not_saved_counter = 0
 		saved_counter = 0
 		channel_id_var = channel_name.downcase == "book" ? nil : Channel.find_by_name(channel_name).id
-		other_attributes = {channel_name: channel_name, title: title, user_id: user_id, year: year}
+		other_attributes = {channel_name: channel_name, title: title, user_id: user_id}
 		
 		# Set count values of each category groupings
 		needs_attribute_count = json_results['tree']['children'][1]['children'][0]['children'].count
