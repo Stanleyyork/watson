@@ -29,7 +29,7 @@ class PersonalityAPICall
 			  'Accept'           => "application/json",
 			  'Accept-Language'  => "en",
 			  'Content-Language' => "en",
-			  'body'             => body
+			  'body'             => body.gsub!(/[^0-9A-Za-z]/, ' ')
 			  )
 			ParseAndSave(JSON.parse(result.body), user_id, channel_name, title)
 		end
