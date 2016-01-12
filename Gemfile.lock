@@ -77,6 +77,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    hash-deep-merge (0.1.1)
     hashie (3.4.3)
     http (0.9.8)
       addressable (~> 2.3)
@@ -101,6 +102,9 @@ GEM
       addressable
       faraday
       multi_json
+    lazy_high_charts (1.5.4)
+      bundler (>= 1.0)
+      hash-deep-merge
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -258,6 +262,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   koala (~> 2.2)
+  lazy_high_charts
   omniauth-facebook
   paperclip (~> 4.3)
   pg (~> 0.15)
