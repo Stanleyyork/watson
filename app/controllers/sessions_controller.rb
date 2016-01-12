@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
     if ((params.has_key? :user) && (params['user'].has_key? :email))
       user = User.find_by_email(params['user'][:email])
       # If the user exists AND the password entered is correct.
-      if user && user.authenticate(params[:password])
-        # Save the user id inside the browser cookie. This is how we keep the user
+      if user && user.authenticate(params[:user][:password])
+        # Save the user id inside the browser cookie. This is how we keep the user 
         # logged in when they navigate around our website.
         session[:user_id] = user.id
         redirect_to '/settings'
@@ -24,6 +24,10 @@ class SessionsController < ApplicationController
       end
     elsif(!current_user)
       user = User.from_omniauth(env["omniauth.auth"])
+      if user.nil?
+        flash[:notice] = "Facebook login failed"
+        redirect_to '/login'
+      end
       session[:user_id] = user.id
       access_token = user.oauth_token
       user.facebook_access_token = access_token
