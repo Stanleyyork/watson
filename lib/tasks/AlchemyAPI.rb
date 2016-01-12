@@ -152,6 +152,7 @@ class AlchemyAPICall
 			if(channel_name.downcase == "book")
 				body = channel_url
 				text_or_url = "url"
+				title += title + " url: " +  channel_url
 			elsif(channel_name.downcase == "twitter" || channel_name == "Facebook")
 				body = Channel.where(user_id: user_id).where(name: channel_name).pluck(:content).join(" ")
 				text_or_url = "text"
@@ -186,7 +187,7 @@ class AlchemyAPICall
 			}
 		topicEntry = Topic.new(docSentiment)
 		topicEntry.channel_name = channel_name
-		topicEntry.title = title + " url: " +  channel_url
+		topicEntry.title = title
 		topicEntry.user_id = user_id
 		topicEntry.save
 
@@ -203,7 +204,7 @@ class AlchemyAPICall
 				}
 			topicEntryb = Topic.new(concepts)
 			topicEntryb.channel_name = channel_name
-			topicEntry.title = title + " url: " + channel_url
+			topicEntry.title = title 
 			topicEntryb.user_id = user_id
 			topicEntryb.save
 		end
@@ -216,7 +217,7 @@ class AlchemyAPICall
 			}
 		topicEntryc = Topic.new(category)
 		topicEntryc.channel_name = channel_name
-		topicEntry.title = title + " url: " +  channel_url
+		topicEntry.title = title
 		topicEntryc.user_id = user_id
 		topicEntryc.save
 	end
