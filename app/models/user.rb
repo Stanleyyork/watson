@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	has_secure_password(validations: false)
   # From paperclip
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "WATSON_NO_PIC.png"
+  has_attached_file :avatar, styles: { medium: "300x300>" }, default_url: "WATSON_NO_PIC.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   validates_confirmation_of :password, unless: -> { from_omniauth? }

@@ -31,7 +31,7 @@
 	<p class="fb-link"><%= link_to "Analyze Twitter and Facebook Data", analyze_data_path %></p>
 <% end %>
 
-	<%= form_for @user do |f| %>
+	<%= form_for @user, html: { multipart: true } do |f| %>
 		<div class="form-group">
 			<%= f.label :avatar %>
 			<%= f.file_field :avatar, class: "form-control" %>
