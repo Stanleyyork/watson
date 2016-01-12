@@ -10,8 +10,17 @@ class UsersController < ApplicationController
   end
 
   def analyze_personality
-    Personality.personality(current_user.id, "twitter", 2015, "#{current_user.name}'s Twitter Account")
-    Personality.personality(current_user.id, "Facebook", 2015, "#{current_user.name}'s Facebook Account")
+    if(!Channel.where(name: "twitter").where(user_id: current_user.id).empty?)
+      Personality.personality(current_user.id, "twitter", 2015, "#{current_user.name}'s Twitter Account")
+    else
+      flash[:notice] = "No twitter content to analyze"
+    end
+    if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
+      Personality.personality(current_user.id, "Facebook", 2015, "#{current_user.name}'s Facebook Account")
+    else
+      flash[:notice] = "No facebook content to analyze"
+    end
+    redirect_to user_path(current_user)
   end
 
   def twitter 

@@ -19,7 +19,7 @@ class PersonalityAPICall
 		
 		if(channel_name.downcase == "book")
 			body = open(channel_url, :ssl_verify_mode=>OpenSSL::SSL::VERIFY_NONE)
-		elsif(channel_name.downcase == "twitter" || channel_name.downcase == "facebook")
+		elsif(channel_name.downcase == "twitter" || channel_name == "Facebook")
 			body = Channel.where(user_id: user_id).where(name: channel_name).where(year: year).pluck(:content).join(" ")
 			puts body.length
 		else
