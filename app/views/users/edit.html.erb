@@ -14,7 +14,7 @@
 	<% end %>
 <br>
 
-<% if (@twitter_count > 0 %>
+<% if @twitter_count > 0 %>
 	<p class="fb-link"><%= link_to "Analyze Twitter Data", analyze_data_path, data: { confirm: 'Are you sure?' } %></p>
 <% end %>
 
