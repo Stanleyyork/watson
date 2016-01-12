@@ -7,7 +7,8 @@
 	<%= form_for :user, url: '/twitter' do |f| %>
 		<%= f.label :twitter_username %>
 		<%= f.text_field :twitter_username, class: "form-control" %>
-		<%= f.submit "Retrieve Tweets", class: 'btn btn-default'  %>
+		Your twtter page must be set to public before retrieving
+		<%= f.submit "Retrieve Tweets", class: 'btn btn-default', class: 'btn btn-default'  %>
 	<% end %>
 <% else %>
 	<%= "Already pulled Tweets" %>

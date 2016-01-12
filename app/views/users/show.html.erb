@@ -2,23 +2,39 @@
 	<div class="col-sm-3 user-bar">
 		<div class="profile-headers text-center"><%= @user.name %></div>
 		<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar img-rounded image-resize"%>
-		<h5 class="text-muted text-center"> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %></h5>
-		<%= link_to "Edit profile", "/users/#{current_user.id}/edit" %>
+		<div class="profbar-wrapper">
+			<h5> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br>
+			<%= link_to "Edit profile", "/users/#{current_user.id}/edit", class: 'navbar-links'%>
+		</h5>
+		</div>
 	</div>
-	<span class="col-sm-3">
-	<b><%= "Big 5" %></b>
+
+<!-- 	<div class="row">
+		<span class="col-sm-3 trait-headers">
+			<%= @big_5.reverse[0][0] %>
+		</span>
+		<span class="col-sm-3 trait-headers">
+			<%= @needs.reverse[0][0] %>
+		</span>
+		<span class="col-sm-3 traits">
+			<%= @values.reverse[0][0] %>
+		</span>
+	</div> -->
+	<span class="col-sm-3 traits">
+	<div class="trait-headers"><%= "Big 5" %></div>
+
 	<% @big_5.reverse.each do |attribute| %>
 		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
 	<% end %>
 	</span>
-	<span class="col-sm-3">
-	<b><%= "Needs" %></b>
+	<span class="col-sm-3 traits">
+	<div class="trait-headers"><%= "Needs" %></div>
 	<% @needs.reverse.each do |attribute| %>
 		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
 	<% end %>
 	</span>
-	<span class="col-sm-3">
-	<b><%= "Values" %></b>
+	<span class="col-sm-3 traits">
+	<div class="trait-headers"><%= "Values" %></div>
 	<% @values.reverse.each do |attribute| %>
 		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
 	<% end %>
