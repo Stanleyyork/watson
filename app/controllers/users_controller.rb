@@ -11,12 +11,14 @@ class UsersController < ApplicationController
 
   def analyze_personality
     if(!Channel.where(name: "twitter").where(user_id: current_user.id).empty?)
-      Personality.personality(current_user.id, "twitter", 2015, "#{current_user.name}'s Twitter Account")
+      Personality.personality(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
+      Topic.alchemy(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
     else
       flash[:notice] = "No twitter content to analyze"
     end
     if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
-      Personality.personality(current_user.id, "Facebook", 2015, "#{current_user.name}'s Facebook Account")
+      Personality.personality(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
+      Topic.alchemy(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
     else
       flash[:notice] = "No facebook content to analyze"
     end
@@ -86,6 +88,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user
+      redirect_to '/settings'
+    end
     @user = User.new
   end
 
@@ -102,6 +107,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation, :avatar)
   end
 end

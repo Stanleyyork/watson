@@ -1,11 +1,38 @@
-<h1>Signup</h1>
+<div class="col-md-12 banner text-center">
+	Sign up and get started!
+	<div class="half-banner"></div>
+</div>
 
-<%= form_for :user, url: '/users' do |f| %>
-	Username: <%= f.text_field :username %>
-	Name: <%= f.text_field :name %>
-	Email: <%= f.text_field :email %>
-	Password: <%= f.password_field :password %>
-	Password Confirmation: <%= f.password_field :password_confirmation %>
-	<%= f.submit "Submit" %><br><br>
-	<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-<% end %>
+<div class="col-xs-7 col-sm-7 col-md-4 col-xs-offset-4 col-sm-offset-4  col-md-offset-7signup-form">
+	<div class="headers text-center">
+		<h1>Signup!</h1>
+	</div>
+	<%= form_for :user, url: '/users' do |f| %>
+
+			<div class="form-group">
+				<%= f.label :username %>
+				<%= f.text_field :username, class: "form-control"%>
+			</div>
+			<div class="form-group">
+				<%= f.label :name %>
+				<%= f.text_field :name, class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= f.label :email %>
+				<%= f.text_field :email, class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= f.label :password %>
+				<%= f.password_field :password, class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= f.label :password_confirmation %>
+				<%= f.password_field :password_confirmation, class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= f.submit "Submit", class: 'btn btn-default' %>
+			</div>
+			<p class="fb-link"><%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %></p>
+	<% end %>
+</div>
+

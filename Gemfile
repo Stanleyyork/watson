@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'watson-api-client'
-gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
@@ -40,6 +39,14 @@ gem 'omniauth-facebook'
 
 # Hide keys
 gem 'dotenv-rails', :groups => [:development, :test]
+
+
+# Use paperclip for image upload
+gem "paperclip", "~> 4.3"
+
+# Use bootstrap for styling
+gem 'bootstrap-sass', '~> 3.3.6'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

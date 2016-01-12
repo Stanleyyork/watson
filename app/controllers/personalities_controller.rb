@@ -1,7 +1,7 @@
 class PersonalitiesController < ApplicationController
-	require './lib/tasks/PersonalityAPI'
 	
 	def new
+		Topic.alchemy
 	end
 
 	def create

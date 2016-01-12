@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108221611) do
+ActiveRecord::Schema.define(version: 20160112192912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,22 @@ ActiveRecord::Schema.define(version: 20160108221611) do
     t.datetime "updated_at",                  null: false
   end
 
+  create_table "topics", force: :cascade do |t|
+    t.string   "name"
+    t.string   "label"
+    t.string   "relevance"
+    t.string   "website"
+    t.string   "dbpedia"
+    t.string   "freebase"
+    t.string   "yago"
+    t.integer  "user_id"
+    t.string   "channel_name"
+    t.string   "title"
+    t.string   "year"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "name"
@@ -86,6 +102,10 @@ ActiveRecord::Schema.define(version: 20160108221611) do
     t.datetime "oauth_expires_at"
     t.string   "facebook_posts"
     t.string   "facebook_access_token"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
 end

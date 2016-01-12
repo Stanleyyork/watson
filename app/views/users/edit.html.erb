@@ -1,7 +1,13 @@
-<% if @twitter_count == 0 %>
+<div class="col-xs-7 col-sm-7 col-md-4 col-xs-offset-4 col-sm-offset-4  col-md-offset-7signup-form">
+	<div class="headers text-center">
+		<h1>Edit your profile</h1>
+	</div>
+
+	<% if @twitter_count == 0 %>
 	<%= form_for :user, url: '/twitter' do |f| %>
-		Twitter Username: <%= f.text_field :twitter_username %>
-		<%= f.submit "Retrieve Tweets" %>
+		<%= f.label :twitter_username %>
+		<%= f.text_field :twitter_username, class: "form-control" %>
+		<%= f.submit "Retrieve Tweets", class: 'btn btn-default'  %>
 	<% end %>
 <% else %>
 	<%= "Already pulled Tweets" %>
@@ -9,17 +15,41 @@
 <br>
 
 <% if @facebook_count == 0 %>
-	Facebook
-	<% if current_user.facebook_access_token.nil? %>
-		<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-	<% else %>
-		<%= link_to "Retrieve Posts", facebook_posts_retreival_path %>
-	<% end %>
+	<div class="form-group">
+		<label>Facebook</label>
+		<% if current_user.facebook_access_token.nil? %>
+			<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+		<% else %>
+			<p><%= link_to "Retrieve Posts", facebook_posts_retreival_path, class: 'btn btn-default'  %></p>
+		<% end %>
+	</div>
 <% else %>
 	<%= "Already pulled Facebook posts" %>
 <% end %>
-<br>
 
 <% if (@twitter_count > 0 || @facebook_count > 0) %>
-	<%= link_to "Analyze Twitter and Facebook Data", analyze_data_path %>
+	<p class="fb-link"><%= link_to "Analyze Twitter and Facebook Data", analyze_data_path %></p>
 <% end %>
+
+	<%= form_for @user do |f| %>
+		<div class="form-group">
+			<%= f.label :avatar %>
+			<%= f.file_field :avatar, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= f.label :username %>
+			<%= f.text_field :username, class: "form-control"%>
+		</div>
+		<div class="form-group">
+			<%= f.label :name %>
+			<%= f.text_field :name, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= f.label :email %>
+			<%= f.text_field :email, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= f.submit "Submit", class: 'btn btn-default' %>
+		</div>
+	<% end %>
+</div>

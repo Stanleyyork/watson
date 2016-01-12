@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Watson</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<% if flash[:notice] %>
-  <div class="alert">
-    <div class="alert alert-danger" role="alert">
-      <% if flash[:notice].class != String %>
-        <% flash[:notice].each do |f| %><br>
-          <%= f %>
+  <head>
+    <title>Watson</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="logo text-center">
+        <%= image_tag "WATSON_LOGO.png", class: "logo" %>
+      </div>
+      <div class="navbar-left">
+        <%= link_to "WATSON", root_path, class: "navbar-links" %>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <% if current_user %>
+        <li><%= link_to "Profile", user_path(current_user.id), class: "navbar-links" %></li>
+        <li><%= link_to "Log out", logout_path, class: "navbar-links" %></li>
+        <% else %>
+        <li><%= link_to "Sign up", new_user_path, class: "navbar-links" %></li>
+        <li><%= link_to "Log in", login_path, class: "navbar-links" %></li>
         <% end %>
-      <% else %>
+      </ul>
+    </nav>
+    <% if flash[:notice] %>
+    <div class="alert">
+      <div class="alert alert-danger" role="alert">
+        <% if flash[:notice].class != String %>
+        <% flash[:notice].each do |f| %><br>
+        <%= f %>
+        <% end %>
+        <% else %>
         <%= flash[:notice] %>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
-<% end %>
-
-<%= yield %>
-
-
-</body>
+    <% end %>
+    <%= yield %>
+  </body>
 </html>
