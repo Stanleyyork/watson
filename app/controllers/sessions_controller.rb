@@ -31,13 +31,13 @@ class SessionsController < ApplicationController
         redirect_to '/login'
       end
     else
+      puts "User already exists, but no facebook info"
       @user = current_user
       auth = env["omniauth.auth"]
       User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         @user.provider = auth.provider
-        @user.uid = auth.uid
-        @user.name = auth.info.name
         @user.facebook_access_token = auth.credentials.token
+        puts @user.facebook_access_token
         @user.oauth_expires_at = Time.at(auth.credentials.expires_at)
         @user.save
       end
