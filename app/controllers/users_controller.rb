@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :authorize, only: [:edit, :update, :destroy]
   
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
     @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
