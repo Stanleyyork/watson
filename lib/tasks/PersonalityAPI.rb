@@ -26,14 +26,19 @@ class PersonalityAPICall
 			return "Channel not recognized"
 		end
 
-		result = personality.profile(
-		  'Content-Type'     => "text/plain",
-		  'Accept'           => "application/json",
-		  'Accept-Language'  => "en",
-		  'Content-Language' => "en",
-		  'body'             => body
-		  )
-		ParseAndSave(JSON.parse(result.body), user_id, channel_name, year, title)
+
+		if body.length > 0
+			result = personality.profile(
+			  'Content-Type'     => "text/plain",
+			  'Accept'           => "application/json",
+			  'Accept-Language'  => "en",
+			  'Content-Language' => "en",
+			  'body'             => body
+			  )
+			ParseAndSave(JSON.parse(result.body), user_id, channel_name, year, title)
+		else
+			puts "No data stored"
+		end
 	end
 
 	def ParseAndSave(json_results, user_id, channel_name, year, title)
