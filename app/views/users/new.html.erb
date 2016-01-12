@@ -10,19 +10,24 @@
 	<%= form_for :user, url: '/users' do |f| %>
 
 			<div class="form-group">
-				Username: <%= f.text_field :username, class: "form-control" %>
+				<%= f.label :username %>
+				<%= f.text_field :username, class: "form-control"%>
 			</div>
 			<div class="form-group">
-				Name: <%= f.text_field :name, class: "form-control" %>
+				<%= f.label :name %>
+				<%= f.text_field :name, class: "form-control" %>
 			</div>
 			<div class="form-group">
-				Email: <%= f.text_field :email, class: "form-control" %>
+				<%= f.label :email %>
+				<%= f.text_field :email, class: "form-control" %>
 			</div>
 			<div class="form-group">
-				Password: <%= f.password_field :password, class: "form-control" %>
+				<%= f.label :password %>
+				<%= f.password_field :password, class: "form-control" %>
 			</div>
 			<div class="form-group">
-				Password Confirmation: <%= f.password_field :password_confirmation, class: "form-control" %>
+				<%= f.label :password_confirmation %>
+				<%= f.password_field :password_confirmation, class: "form-control" %>
 			</div>
 			<div class="form-group">
 				<%= f.submit "Submit", class: 'btn btn-default' %>
