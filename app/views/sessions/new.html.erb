@@ -9,6 +9,7 @@
 
 <%= form_for :user, url: '/login' do |f| %>
 	<div class="form-group">
+<<<<<<< HEAD
 		Email: <%= f.text_field :email, class: "form-control" %>
 	</div>
 	<div class="form-group">	
@@ -17,4 +18,15 @@
 	<div class="form-group">	 
 		<%= f.submit "Submit", class: 'btn btn-default' %><br><br>
 	</div>	
+=======
+  		Email: <%= f.text_field :email, class: "form-control" %>
+  	</div>
+  	<div class="form-group">	
+  		Password: <%= f.password_field :password, class: "form-control" %>
+  	</div>
+  	<div class="form-group">	 
+  		<%= f.submit "Submit", class: 'btn btn-default' %><br><br>
+  	</div>	
+  <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'btn btn-default fb-button' %>
+>>>>>>> 9862d376d738513ddbe0261853c94cbfcab536b8
 <% end %>
