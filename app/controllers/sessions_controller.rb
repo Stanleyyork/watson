@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
 
   def new
+    if current_user
+      redirect_to '/settings'
+    end
     @oauth = Koala::Facebook::OAuth.new(ENV["FB_APP_ID"], ENV["FB_APP_SECRET"], "http://localhost:3000/")
     @facebook_login_url = @oauth.url_for_oauth_code(:permissions => "user_posts")
   end
