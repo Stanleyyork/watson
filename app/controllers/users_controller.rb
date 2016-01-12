@@ -4,6 +4,23 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+    @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+    @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+  end
+
+  def analyze_personality
+    if(!Channel.where(name: "twitter").where(user_id: current_user.id).empty?)
+      Personality.personality(current_user.id, "twitter", 2015, "#{current_user.name}'s Twitter Account")
+    else
+      flash[:notice] = "No twitter content to analyze"
+    end
+    if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
+      Personality.personality(current_user.id, "Facebook", 2015, "#{current_user.name}'s Facebook Account")
+    else
+      flash[:notice] = "No facebook content to analyze"
+    end
+    redirect_to user_path(current_user)
   end
 
   def twitter 
@@ -23,7 +40,7 @@ class UsersController < ApplicationController
 
   def facebook
     @graph = Koala::Facebook::API.new(current_user.facebook_access_token)
-    if(Channel.where(user_id: current_user.id).first.nil?)
+    if(Channel.where(user_id: current_user.id).where(name: "Facebook").first.nil?)
       feed = @graph.get_connections("me", "feed")
       feed.each do |f|
         puts f
@@ -31,6 +48,7 @@ class UsersController < ApplicationController
         c.user_id = current_user.id
         c.name = "Facebook"
         c.date = f['created_time']
+        c.year = (f['created_time'].to_s)[0..3]
         c.num_entries = 1
         c.save
       end
@@ -68,6 +86,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user
+      redirect_to '/settings'
+    end
     @user = User.new
   end
 

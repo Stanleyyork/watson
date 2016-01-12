@@ -1,2 +1,20 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="row">
+	<span class="col-sm-3">
+	<b><%= "Big 5" %></b>
+	<% @big_5.reverse.each do |attribute| %>
+		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+	<% end %>
+	</span>
+	<span class="col-sm-3">
+	<b><%= "Needs" %></b>
+	<% @needs.reverse.each do |attribute| %>
+		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+	<% end %>
+	</span>
+	<span class="col-sm-3">
+	<b><%= "Values" %></b>
+	<% @values.reverse.each do |attribute| %>
+		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+	<% end %>
+	</span>
+</div>
