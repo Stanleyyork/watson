@@ -1,6 +1,9 @@
 <% if @twitter_count == 0 %>
 	<%= form_for :user, url: '/twitter' do |f| %>
-		Twitter Username: <%= f.text_field :twitter_username %>
+		<%= f.label :avatar %>
+		<%= f.file_field :avatar %>
+		<%= f.label :twitter_username %>
+		<%= f.text_field :twitter_username %>
 		<%= f.submit "Retrieve Tweets" %>
 	<% end %>
 <% else %>
