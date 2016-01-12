@@ -11,14 +11,18 @@ class UsersController < ApplicationController
 
   def analyze_personality
     if(!Channel.where(name: "twitter").where(user_id: current_user.id).empty?)
+      Personality.where(user_id: current_user.id).where(channel_name: "twitter").delete_all
       Personality.personality(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
+      Topic.where(user_id: current_user.id).where(channel_name: "twitter").delete_all
       Topic.alchemy(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
     else
       flash[:notice] = "No twitter content to analyze"
     end
     if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
       Personality.personality(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
+      Personality.where(user_id: current_user.id).where(name: "Facebook").delete_all
       Topic.alchemy(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
+      Topic.where(user_id: current_user.id).where(channel_name: "Facebook").delete_all
     else
       flash[:notice] = "No facebook content to analyze"
     end
