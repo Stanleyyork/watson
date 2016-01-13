@@ -6,7 +6,14 @@ class UsersController < ApplicationController
   before_filter :authorize, only: [:edit, :update, :destroy]
   
   def show
-    @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
+    if params.has_key?(:username)
+      @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
+    elsif params.has_key?(:id)
+      @user = User.find_by_id(params[:id])
+    else
+      redirect_to '/'
+    end
+    puts @user.to_yaml
     @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
@@ -18,7 +25,11 @@ class UsersController < ApplicationController
     books = [
       { :name => 'Alice in Wonderland', :filename => 'alice.json'},
       { :name => 'Dracula', :filename => 'dracula.json'},
-      { :name => 'Adventures of Huckleberry Finn', :filename => 'huck.json'}
+      { :name => 'Adventures of Huckleberry Finn', :filename => 'huck.json'},
+      { :name => 'Pride and Prejudice', :filename => 'pride.json'},
+      { :name => 'Grimms Fairy Tales', :filename => 'grimm.json' },
+      { :name => 'War and Peace', :filename => 'war.json'},
+      { :name => 'Metamorphosis', :filename => 'metamorphosis.json'}
     ]
     sorted_books = books.sort_by { |book|
       book_vector = book_vector(book[:filename], key_ordering)
@@ -60,8 +71,6 @@ class UsersController < ApplicationController
       Personality.personality(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
       Topic.where(user_id: current_user.id).where(channel_name: "Facebook").delete_all
       Topic.alchemy(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
-    else
-      flash[:notice] = "No facebook content to analyze"
     end
     redirect_to user_path(current_user)
   end

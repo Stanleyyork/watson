@@ -42,7 +42,7 @@ class PersonalityAPICall
 		channel_id_var = channel_name.downcase == "book" ? nil : Channel.find_by_name(channel_name).id
 		other_attributes = {channel_name: channel_name, title: title, user_id: user_id}
 		personalities.each do |personality|
-			personalityEntry = Personality.new(big_5_json_object)
+			personalityEntry = Personality.new(personality)
 			personalityEntry.attributes = other_attributes
 			personalityEntry.save ? saved_counter += 1 : not_saved_counter += 1
 		end
