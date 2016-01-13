@@ -2,11 +2,24 @@ class UsersController < ApplicationController
 
   before_filter :authorize, only: [:edit, :update, :destroy]
   
+
+
   def show
     @user = User.find(params[:id])
     @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+    @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
+      f.series(:name=>'John', :data=>[-0.3], :color=> '#E23246')
+      f.options[:xAxis][:reversed] = false
+      f.options[:xAxis][:labels] = { enabled:false }
+      f.options[:yAxis][:labels] = { enabled:false }
+      f.options[:yAxis][:max] = 1
+      f.options[:yAxis][:min] = -1
+      f.options[:yAxis][:tickInterval] = 1
+      f.options[:legend][:enabled] = false
+      f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'500'})
+    end
   end
 
   def analyze_personality
