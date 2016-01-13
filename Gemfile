@@ -47,7 +47,8 @@ gem "paperclip-dropbox", ">= 1.1.7"
 
 # Use bootstrap for styling
 gem 'bootstrap-sass', '~> 3.3.6'
-
+gem 'json', '~> 1.8.3'
+gem 'measurable', '~> 0.0.9'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

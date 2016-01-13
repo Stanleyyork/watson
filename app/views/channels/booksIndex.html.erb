@@ -1,0 +1,13 @@
+<%= form_for @book, url: "/books" do |f| %>
+	<div class="form-group">
+		<%= f.label :title %>
+		<%= f.text_area :title %>
+	</div>
+	<div class="form-group">
+		<%= f.label :url %>
+		<%= f.text_area :url %>
+	</div>
+	<div class="form-group">
+		<%= f.submit "Submit" %>
+	</div>
+<% end %>

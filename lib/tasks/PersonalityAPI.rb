@@ -36,11 +36,22 @@ class PersonalityAPICall
 		end
 	end
 
-	def ParseAndSave(json_results, user_id, channel_name, title)
+	def AnnotateAndSave(personalities, user_id, channel_name, title)
 		not_saved_counter = 0
 		saved_counter = 0
+		total_counter = personalities.length
 		channel_id_var = channel_name.downcase == "book" ? nil : Channel.find_by_name(channel_name).id
 		other_attributes = {channel_name: channel_name, title: title, user_id: user_id}
+		personalities.each do |personality|
+			personalityEntry = Personality.new(personality)
+			personalityEntry.attributes = other_attributes
+			personalityEntry.save ? saved_counter += 1 : not_saved_counter += 1
+		end
+		puts "COUNTER - Big 5 // Saved: #{saved_counter}, Not Saved: #{not_saved_counter}, total: #{total_counter}"
+	end
+
+	def Parse(json_results)
+		results = []
 		
 		# Set count values of each category groupings
 		needs_attribute_count = json_results['tree']['children'][1]['children'][0]['children'].count
@@ -50,42 +61,32 @@ class PersonalityAPICall
 		(0..4).each do |big_5_trait|
 			(0..5).each do |attrib_number|
 				attrib_object = json_results['tree']['children'][0]['children'][0]['children'][big_5_trait]['children'][attrib_number]
-				big_5_json_object = {category: json_results['tree']['children'][0]['name'],
-									 subcategory: json_results['tree']['children'][0]['children'][0]['children'][0]['name'],
-									 attribute_name: attrib_object['name'],
-									 percentage: attrib_object['percentage'],
-									 sampling_error: attrib_object['sampling_error']}
-				personalityEntry = Personality.new(big_5_json_object)
-				personalityEntry.attributes = other_attributes
-				personalityEntry.save ? saved_counter += 1 : not_saved_counter += 1
+				results << {category: json_results['tree']['children'][0]['name'],
+							 subcategory: json_results['tree']['children'][0]['children'][0]['children'][0]['name'],
+							 attribute_name: attrib_object['name'],
+							 percentage: attrib_object['percentage'],
+							 sampling_error: attrib_object['sampling_error']}
 			end
 		end
-
-		# Output and reset counters
-		puts "COUNTER - Big 5 // Saved: #{saved_counter}, Not Saved: #{not_saved_counter}, total: 30"
-		not_saved_counter = 0
-		saved_counter = 0
 
 		# Loops through Needs and Values and saves them
 		(1..2).each do |need_or_value|
 			needs_values_attribute_count = need_or_value > 1 ? values_attribute_count : needs_attribute_count
 			(0..needs_values_attribute_count-1).each do |attrib|
 				attrib_object = json_results['tree']['children'][need_or_value]['children'][0]['children'][attrib]
-				needs_value_json_object = {category: json_results['tree']['children'][need_or_value]['name'],
+				results << {category: json_results['tree']['children'][need_or_value]['name'],
 									 attribute_name: attrib_object['name'],
 									 percentage: attrib_object['percentage'],
 									 sampling_error: attrib_object['sampling_error']}
-				personalityEntry = Personality.new(needs_value_json_object)
-				personalityEntry.attributes = other_attributes
-				personalityEntry.save ? saved_counter += 1 : not_saved_counter += 1
 			end
-
-			# Output and reset counters
-			puts "COUNTER - Needs & Values #{need_or_value} // Saved: #{saved_counter}, Not Saved: #{not_saved_counter}, Total: #{need_or_value > 1 ? values_attribute_count : needs_attribute_count}"
-			not_saved_counter = 0
-			saved_counter = 0
 		end
 
+		results
+	end
+
+	def ParseAndSave(json_results, user_id, channel_name, title)
+		personalities = Parse(json_results)
+		AnnotateAndSave(personalities, user_id, channel_name, title)
 	end
 
 end

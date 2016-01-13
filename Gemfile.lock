@@ -107,6 +107,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    measurable (0.0.9)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     mime-types (2.99)
@@ -262,7 +263,9 @@ DEPENDENCIES
   dotenv-rails
   jbuilder (~> 2.0)
   jquery-rails
+  json (~> 1.8.3)
   koala (~> 2.2)
+  measurable (~> 0.0.9)
   omniauth-facebook
   paperclip (~> 4.3)
   paperclip-dropbox (>= 1.1.7)
