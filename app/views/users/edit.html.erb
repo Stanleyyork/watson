@@ -5,26 +5,28 @@
 
 	<% if @twitter_count == 0 %>
 		<br>
-		<div class="progress hidden">
-		  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 1%" id="progress_bar">
-		  </div>
+		<div class="tweets" id="retrieve-tweets">
+			<div class="progress hidden">
+			  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 1%" id="progress_bar">
+			  </div>
+			</div>
+			<form id="retrieve-tweets-submit">
+			  	<div class="form-group">
+			    	<input type="text" name="twitter_username" id="twitter_username" class="form-control" placeholder="">
+			  	</div>
+			  	<div class="form-group">
+			    	<input type="submit" class="btn btn-default" value="Submit">
+			  	</div>
+			</form>
 		</div>
-		<form id="retrieve-tweets-submit">
-		  	<div class="form-group">
-		    	<input type="text" name="twitter_username" id="twitter_username" class="form-control" placeholder="">
-		  	</div>
-		  	<div class="form-group">
-		    	<input type="submit" class="btn btn-default" value="Submit">
-		  	</div>
-		</form>
 	<% else %>
 		<%= "Already pulled Tweets" %>
 	<% end %>
 <br>
 
-<% if @twitter_count > 0 %>
-	<p class="fb-link"><%= link_to "Analyze Twitter Data", analyze_data_path, data: { confirm: 'Are you sure?' } %></p>
-<% end %>
+<div class="analyze hidden" id="analyze-tweets">
+	<%= link_to "Analyze Twitter Data", analyze_data_path, class: 'btn btn-default', data: { confirm: 'Are you sure?' } %>
+</div>
 
 	<%= form_for @user, html: { multipart: true } do |f| %>
 		<div class="form-group">

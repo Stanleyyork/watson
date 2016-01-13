@@ -5,7 +5,7 @@ $(function() {
 
 	$('#retrieve-tweets-submit').on('submit', function(e){
 		e.preventDefault();
-		$("div.hidden").removeClass("hidden");
+		$(".progress.hidden").removeClass("hidden");
 		var twitter_username = $('#twitter_username')[0]['value'];
 		progressBarCount();
 		$.ajax({
@@ -19,7 +19,12 @@ $(function() {
 				setInterval(function(){
 					$('#progress_bar').append('<span class="glyphicon glyphicon-ok"></span>');
 				},2500);
-				
+				setInterval(function(){
+					$('#retrieve-tweets').addClass("hidden");
+				},2500);
+				setInterval(function(){
+					$('#analyze-tweets').removeClass("hidden");
+				},2500);
 		    },
 		    error: function (error) {
 		      console.log("Error: ");
