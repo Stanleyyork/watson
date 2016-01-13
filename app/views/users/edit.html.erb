@@ -4,32 +4,18 @@
 	</div>
 
 	<% if @twitter_count == 0 %>
-	<%= form_for :user, url: '/twitter' do |f| %>
-		<%= f.label :twitter_username %>
-		<%= f.text_field :twitter_username, class: "form-control" %>
-		Your twtter page must be set to public before retrieving
-		<%= f.submit "Retrieve Tweets", class: 'btn btn-default', class: 'btn btn-default'  %>
+		<%= form_for :user, url: '/twitter' do |f| %>
+			<%= f.label :twitter_username %>
+			<%= f.text_field :twitter_username, class: "form-control" %>
+			<%= f.submit "Retrieve Tweets", class: 'btn btn-default'  %>
+		<% end %>
+	<% else %>
+		<%= "Already pulled Tweets" %>
 	<% end %>
-<% else %>
-	<%= "Already pulled Tweets" %>
-<% end %>
 <br>
 
-<% if @facebook_count == 0 %>
-	<div class="form-group">
-		<label>Facebook</label>
-		<% if current_user.facebook_access_token.nil? %>
-			<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-		<% else %>
-			<p><%= link_to "Retrieve Posts", facebook_posts_retreival_path, class: 'btn btn-default'  %></p>
-		<% end %>
-	</div>
-<% else %>
-	<%= "Already pulled Facebook posts" %>
-<% end %>
-
-<% if (@twitter_count > 0 || @facebook_count > 0) %>
-	<p class="fb-link"><%= link_to "Analyze Twitter and Facebook Data", analyze_data_path %></p>
+<% if @twitter_count > 0 %>
+	<p class="fb-link"><%= link_to "Analyze Twitter Data", analyze_data_path, data: { confirm: 'Are you sure?' } %></p>
 <% end %>
 
 	<%= form_for @user, html: { multipart: true } do |f| %>
