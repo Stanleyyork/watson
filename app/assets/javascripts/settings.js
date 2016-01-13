@@ -17,7 +17,7 @@ $(function() {
 			success: function (data) {
 				console.log("Sent");
 				clearInterval(time);
-				$('#progress_bar').css('width', 351);
+				$('#progress_bar').css('width', "100%");
 				setInterval(function(){
 					$('#progress-bar-check').removeClass("hidden");
 				},2000);
@@ -36,15 +36,16 @@ $(function() {
 
 	function progressBarCount() {
 		time=setInterval(function(){
-			if(counter > 325){
+			if(counter > 90){
 				clearInterval(time);
-			} else if (counter > 260) {
-				counter += 3;
+			} else if (counter > 80) {
+				counter += 0.5;
 			} else {
-				counter += 7;
+				counter += 2;
 			}
+			counter_percent = String(counter) + "%";
 			console.log(counter);
-			$('#progress_bar').css('width', counter);
+			$('#progress_bar').css('width', counter_percent);
 		},300);
 	}
 
