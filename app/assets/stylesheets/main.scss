@@ -1,0 +1,172 @@
+/* All ordered from darkest to lightest*/
+$watson-burgundy: #7F1B1B;
+$watson-red: #E23246;
+$watson-salmon: #E76767;
+$watson-peach: #E78D67;
+$watson-lightpeach: #FFB072;
+$watson-pink: #FCEDED;
+
+
+
+body {
+	background-color: $watson-pink;
+	padding-top: 77px;
+}
+
+.logo {
+	margin-top: 4px;
+	margin-bottom: -35px;
+	height: 60px;
+}
+
+
+.navbar {
+	background-color: $watson-red;
+	border: none;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	height: 79px;
+	font-family: 'jaapokkiregular';
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: $watson-pink;
+	font-size: 18px;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+	color: $watson-lightpeach;
+	text-decoration: none;
+}
+
+.navbar-left {
+	margin-top: -8px;
+	margin-left: 25px;
+	font-size: 30px;
+}
+
+.navbar-right {
+	margin-right: 10px;
+}
+
+.navbar-links {
+	color: $watson-pink;
+	margin-top: -13px;
+}
+
+.navbar-links:hover {
+	color: $watson-lightpeach;
+	margin-top: -13px;
+	text-decoration: none;
+}
+
+
+.banner {
+	background-color: $watson-peach;
+	height: 200px;
+}
+
+.half-banner {
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  width: 100%;
+  height: 100px;
+  background-color: $watson-salmon;
+}
+
+.container {
+	background-color: $watson-red;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.signup-form {
+	background-color: $watson-pink;
+	border: 2px solid $watson-salmon;
+}
+
+.headers {
+	font-family: 'jaapokkiregular';
+	text-transform: uppercase;
+	color: white;
+	background-color: $watson-salmon;
+	padding: 10px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+
+
+/* Profile page*/
+
+.user-bar {
+	height: 100%;
+	background-color: $watson-red;
+	padding: 20px;
+	font-family: 'jaapokkiregular';
+	color: $watson-pink;
+}
+
+.profbar-wrapper {
+	margin: 0px 48px;
+	
+}
+
+.profile-headers {
+	font-family: 'jaapokkiregular';
+	text-transform: uppercase;
+	color: white;
+	background-color: $watson-salmon;
+	padding: 10px;
+	margin: -17px -20px 17px -20px;
+	padding-top: 15px;
+	height: 60px;
+	font-size: 24px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.traits {
+	margin: 20px;
+}
+
+.trait-headers {
+	font-family: 'jaapokkiregular';
+	color: $watson-burgundy;
+	text-transform: uppercase;
+}
+
+.img-rounded {
+	border: 3px solid #FCEDED;
+	border-radius: 5px 45px 5px;
+	margin-left: 35px;
+	margin-top: 37px;
+	height: 250px;
+	padding: 4px;
+	background-color: $watson-salmon;
+	-moz-box-shadow:    inset 0 0 3px #000000;
+	-webkit-box-shadow: inset 0 0 3px #000000;
+	box-shadow:         inset 0 0 3px #000000;
+}
+
+.alert {
+	margin-bottom: 0px;
+}
+
+.wrapper {
+	overflow:auto;
+  padding-bottom: 50px; /* must be same height as the footer */
+}
+
+.footer {
+  position: relative;
+  margin-top: -50px; /* negative value of footer height */
+  height: 50px;
+  clear:both;
+  background-color: $watson-red;
+  color: $watson-pink;
+  font-family: 'jaapokkiregular';
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
