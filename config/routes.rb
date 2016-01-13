@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
 
   get '/books' => 'channels#booksIndex'
+  post '/books' => 'channels#booksUpdate'
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
