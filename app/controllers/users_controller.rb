@@ -3,22 +3,31 @@ class UsersController < ApplicationController
   before_filter :authorize, only: [:edit, :update, :destroy]
   
   def show
-    @user = User.find(params[:id])
-    @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+    @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
+    if(Personality.where(user_id: @user.id).count > 0)
+      @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+    else
+      flash[:notice] = "Analyze tweets first"
+      redirect_to edit_user_path(current_user)
+    end
   end
 
   def analyze_personality
     if(!Channel.where(name: "twitter").where(user_id: current_user.id).empty?)
+      Personality.where(user_id: current_user.id).where(channel_name: "twitter").delete_all
       Personality.personality(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
+      Topic.where(user_id: current_user.id).where(channel_name: "twitter").delete_all
       Topic.alchemy(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
     else
       flash[:notice] = "No twitter content to analyze"
     end
     if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
       Personality.personality(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
+      Personality.where(user_id: current_user.id).where(name: "Facebook").delete_all
       Topic.alchemy(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
+      Topic.where(user_id: current_user.id).where(channel_name: "Facebook").delete_all
     else
       flash[:notice] = "No facebook content to analyze"
     end
@@ -60,9 +69,10 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    user_params = params.require(:user).permit(:name,:email,:username)
+    user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
-      redirect_to user_path(@user)
+      flash[:notice] = "Updated!"
+      redirect_to edit_user_path
     else 
       flash[:notice] = @user.errors.map{|k,v| "#{k} #{v}".capitalize}
       redirect_to edit_user_path

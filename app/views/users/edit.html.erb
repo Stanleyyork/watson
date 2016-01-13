@@ -1,37 +1,24 @@
-<div class="col-xs-7 col-sm-7 col-md-4 col-xs-offset-4 col-sm-offset-4  col-md-offset-7signup-form">
+<div class="col-xs-7 col-sm-7 col-md-4 col-xs-offset-4 col-sm-offset-4  col-md-offset-4 signup-form">
 	<div class="headers text-center">
 		<h1>Edit your profile</h1>
 	</div>
 
 	<% if @twitter_count == 0 %>
-	<%= form_for :user, url: '/twitter' do |f| %>
-		<%= f.label :twitter_username %>
-		<%= f.text_field :twitter_username, class: "form-control" %>
-		<%= f.submit "Retrieve Tweets", class: 'btn btn-default'  %>
+		<%= form_for :user, url: '/twitter' do |f| %>
+			<%= f.label :twitter_username %>
+			<%= f.text_field :twitter_username, class: "form-control" %>
+			<%= f.submit "Retrieve Tweets", class: 'btn btn-default'  %>
+		<% end %>
+	<% else %>
+		<%= "Already pulled Tweets" %>
 	<% end %>
-<% else %>
-	<%= "Already pulled Tweets" %>
-<% end %>
 <br>
 
-<% if @facebook_count == 0 %>
-	<div class="form-group">
-		<label>Facebook</label>
-		<% if current_user.facebook_access_token.nil? %>
-			<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-		<% else %>
-			<p><%= link_to "Retrieve Posts", facebook_posts_retreival_path, class: 'btn btn-default'  %></p>
-		<% end %>
-	</div>
-<% else %>
-	<%= "Already pulled Facebook posts" %>
+<% if @twitter_count > 0 %>
+	<p class="fb-link"><%= link_to "Analyze Twitter Data", analyze_data_path, data: { confirm: 'Are you sure?' } %></p>
 <% end %>
 
-<% if (@twitter_count > 0 || @facebook_count > 0) %>
-	<p class="fb-link"><%= link_to "Analyze Twitter and Facebook Data", analyze_data_path %></p>
-<% end %>
-
-	<%= form_for @user do |f| %>
+	<%= form_for @user, html: { multipart: true } do |f| %>
 		<div class="form-group">
 			<%= f.label :avatar %>
 			<%= f.file_field :avatar, class: "form-control" %>
