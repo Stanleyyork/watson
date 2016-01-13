@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     combination = [].concat(@big_5).concat(@needs).concat(@values)
     puts "#{combination.length} user things:"
     puts combination.to_yaml
+    if combination.empty?
+      flash[:notice] = "Analyze tweets first"
+      redirect_to edit_user_path(current_user)
+    end
     key_ordering = combination.map{ |pair| pair[0] }
     user_vector = combination.map{ |pair| pair[1] }
     books = [
@@ -110,9 +114,10 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    user_params = params.require(:user).permit(:name,:email,:username)
+    user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
-      redirect_to user_path(@user)
+      flash[:notice] = "Updated!"
+      redirect_to edit_user_path
     else 
       flash[:notice] = @user.errors.map{|k,v| "#{k} #{v}".capitalize}
       redirect_to edit_user_path

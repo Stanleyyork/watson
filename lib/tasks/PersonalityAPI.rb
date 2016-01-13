@@ -23,6 +23,7 @@ class PersonalityAPICall
 		else
 			return "Channel not recognized"
 		end
+
 		if(body.length != 0)
 			result = personality.profile(
 			  'Content-Type'     => "text/plain",

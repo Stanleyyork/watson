@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         redirect_to '/settings'
       else
-      # If user's login doesn't work, send them back to the login form.
+        # If user's login doesn't work, send them back to the login form.
         flash[:notice] = "Wrong email or password"
         redirect_to '/login'
       end
@@ -49,7 +49,7 @@ class SessionsController < ApplicationController
         @user.save
       end
       redirect_to edit_user_path(current_user)
-    end  
+    end
   end
 
   def destroy
