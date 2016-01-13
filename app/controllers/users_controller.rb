@@ -35,14 +35,13 @@ class UsersController < ApplicationController
   end
 
   def twitter 
-    @twitter_username = params['user']['twitter_username']
+    @twitter_username = params[:twitter_username]
     @user = current_user
     @user.twitter_username = @twitter_username
     @user.save
     if Channel.where(user_id: @user.id).where(name: "twitter").first.nil?
       TwitterInfo.new.public_tweets(@twitter_username, current_user.id)
-      flash[:notice] = "Stored tweets successfully!"
-      redirect_to edit_user_path(current_user)
+      render :text => "Stored tweets successfully!"
     else
       flash[:notice] = "Already stored tweets"
       redirect_to edit_user_path(current_user)
