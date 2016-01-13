@@ -4,9 +4,14 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
-    @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+    if(Personality.where(user_id: @user.id).count > 0)
+      @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+    else
+      flash[:notice] = "Analyze tweets first"
+      redirect_to edit_user_path(current_user)
+    end
   end
 
   def analyze_personality
@@ -66,7 +71,8 @@ class UsersController < ApplicationController
     @user = current_user
     user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
-      redirect_to user_path(@user)
+      flash[:notice] = "Updated!"
+      redirect_to edit_user_path
     else 
       flash[:notice] = @user.errors.map{|k,v| "#{k} #{v}".capitalize}
       redirect_to edit_user_path
