@@ -23,48 +23,21 @@ class UsersController < ApplicationController
     else
       flash[:notice] = "No twitter content to analyze"
     end
-    if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
-      Personality.personality(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
-      Personality.where(user_id: current_user.id).where(name: "Facebook").delete_all
-      Topic.alchemy(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
-      Topic.where(user_id: current_user.id).where(channel_name: "Facebook").delete_all
-    else
-      flash[:notice] = "No facebook content to analyze"
-    end
     redirect_to user_path(current_user)
   end
 
   def twitter 
-    @twitter_username = params['user']['twitter_username']
+    @twitter_username = params[:twitter_username]
     @user = current_user
     @user.twitter_username = @twitter_username
     @user.save
     if Channel.where(user_id: @user.id).where(name: "twitter").first.nil?
       TwitterInfo.new.public_tweets(@twitter_username, current_user.id)
-      flash[:notice] = "Stored tweets successfully!"
-      redirect_to edit_user_path(current_user)
+      render :text => "Stored tweets successfully!"
     else
       flash[:notice] = "Already stored tweets"
       redirect_to edit_user_path(current_user)
     end
-  end
-
-  def facebook
-    @graph = Koala::Facebook::API.new(current_user.facebook_access_token)
-    if(Channel.where(user_id: current_user.id).where(name: "Facebook").first.nil?)
-      feed = @graph.get_connections("me", "feed")
-      feed.each do |f|
-        puts f
-        c = Channel.new(content: f['message'])
-        c.user_id = current_user.id
-        c.name = "Facebook"
-        c.date = f['created_time']
-        c.year = (f['created_time'].to_s)[0..3]
-        c.num_entries = 1
-        c.save
-      end
-    end
-    redirect_to edit_user_path(current_user)
   end
 
   def update
@@ -82,7 +55,6 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     @twitter_count = Channel.where(user_id: current_user.id).where(name: "twitter").count
-    @facebook_count = Channel.where(user_id: current_user.id).where(name: "Facebook").count
   end
 
   def destroy
