@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       render :text => "Stored tweets successfully!"
     else
       flash[:notice] = "Already stored tweets"
-      redirect_to edit_user_path(current_user)
+      redirect_to edit_user_path(current_user.username)
     end
   end
 
