@@ -4,7 +4,7 @@
 		<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar img-rounded image-resize"%>
 		<div class="profbar-wrapper">
 			<h5> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br>
-			<%= link_to "Edit profile", "/users/#{current_user.id}/edit", class: 'navbar-links'%>
+			<%= link_to "Edit profile", "/settings", class: 'navbar-links'%>
 		</h5>
 		</div>
 	</div>

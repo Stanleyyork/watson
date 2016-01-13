@@ -48,6 +48,9 @@ gem "paperclip-dropbox", ">= 1.1.7"
 # Use bootstrap for styling
 gem 'bootstrap-sass', '~> 3.3.6'
 
+# client side validations
+gem 'client_side_validations'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

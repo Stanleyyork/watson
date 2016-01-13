@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require rails.validations
 //= require_tree .
 //= require bootstrap
