@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
       if @docSentiment != 0.0
         @sentimentChart = LazyHighCharts::HighChart.new('graph') do |f|
-          f.series(:name=>'Senitment', :data=>[@docSentiment], :color=> '#E23246')
+          f.series(:name=>'Sentiment', :data=>[@docSentiment], :color=> '#E23246')
           f.options[:xAxis][:reversed] = false
           f.options[:xAxis][:labels] = { enabled:false }
           f.options[:yAxis][:labels] = { enabled:false }
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @user = User.find(current_user.id)
     user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
       flash[:notice] = "Updated!"
@@ -89,6 +89,7 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     @twitter_count = Channel.where(user_id: current_user.id).where(name: "twitter").count
+    @personality_count = Personality.where(user_id: current_user.id).count
   end
 
   def destroy

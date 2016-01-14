@@ -2,7 +2,6 @@ $(function() {
 
 	console.log("settings.js working");
 	var counter = 5;
-	$("#progress-bar-check").addClass("hidden");
 
 	$('#retrieve-tweets-submit').on('submit', function(e){
 		e.preventDefault();
@@ -19,7 +18,7 @@ $(function() {
 				clearInterval(time);
 				$('#progress_bar').css('width', "100%");
 				setInterval(function(){
-					$('#progress-bar-check').removeClass("hidden");
+					$('#progress-bar-check').append('<span class="glyphicon glyphicon-ok"></span>');
 				},2000);
 				setInterval(function(){
 					$('#retrieve-tweets').addClass("hidden");
