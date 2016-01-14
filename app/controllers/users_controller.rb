@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       @docSentiment = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:relevance)[0].to_f
       @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
       if @docSentiment != 0.0
-        @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
+        @sentimentChart = LazyHighCharts::HighChart.new('graph') do |f|
           f.series(:name=>'Senitment', :data=>[@docSentiment], :color=> '#E23246')
           f.options[:xAxis][:reversed] = false
           f.options[:xAxis][:labels] = { enabled:false }
@@ -24,6 +24,23 @@ class UsersController < ApplicationController
           f.options[:legend][:enabled] = false
           f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'1000'})
         end
+      end
+      
+      # Gather Value and Labels for needs chart
+      @needsValues = @needs.map{|x|(x[1]*100).round}
+      @needsLabels = @needs.map{|x|(x[0])}
+      @needsChart = LazyHighCharts::HighChart.new('graph') do |f|
+        f.series(:name=>'Needs', :type=>'area', :data=>@needsValues, :color=> '#E23246')
+        f.plotOptions(series: { :pointStart=>0, :pointInterval=>45})
+        f.plotOptions(column: { :pointPadding=>0, :groupPadding=>0})
+        f.xAxis[:tickInterval] = 45
+        f.xAxis[:min] = 0
+        f.xAxis[:max] = 360
+        f.yAxis[:min] = 0
+        f.options[:yAxis][:labels] = { enabled:false }
+        f.options[:xAxis][:categories] = @needsLabels
+        f.options[:legend][:enabled] = false
+        f.chart({:polar => true, :backgroundColor=>'#FCEDED',:height=>'600', :width=>'600'})
       end
     else
       flash[:notice] = "Analyze tweets first"
