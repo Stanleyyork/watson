@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
       if @docSentiment != 0.0
         @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
-          f.series(:name=>'Senitment', :data=>[@docSentiment], :color=> '#E23246')
+          f.series(:name=>'Sentiment', :data=>[@docSentiment], :color=> '#E23246')
           f.options[:xAxis][:reversed] = false
           f.options[:xAxis][:labels] = { enabled:false }
           f.options[:yAxis][:labels] = { enabled:false }
