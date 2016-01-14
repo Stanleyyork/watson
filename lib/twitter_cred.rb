@@ -32,21 +32,10 @@ class TwitterInfo
   end
 
   # Save each individual tweet to db
-
   def save_data(results, user_id)
     puts 'save_data'
-    results.each do |tweet|
-      puts tweet
-      @savetweet = Channel.new
-      @savetweet.content = tweet.text 
-      @savetweet.user_id = user_id
-      @savetweet.date = tweet.created_at
-      @savetweet.name = "twitter"
-      @savetweet.subname = "account: " + tweet.user.screen_name
-      @savetweet.year = tweet.created_at.year
-      @savetweet.num_entries = 1
-      @savetweet.save
-    end
+    r = results.map{|t| {content: t.text, user_id: user_id, date: t.created_at, name: "twitter", year: t.created_at.year, num_entries: 1, subname: "account: #{t.user.screen_name}"}}
+    Channel.create(r)
   end
 end
 
