@@ -13,16 +13,33 @@ body {
 	padding-top: 77px;
 }
 
-#SampleGraph {
-	margin: 0px, auto;
-}
-
 .logo {
 	margin-top: 4px;
 	margin-bottom: -35px;
 	height: 60px;
 }
 
+.chart-header {
+  width: inherit;
+  height: 30px;
+  font-family: 'jaapokkiregular';
+  color: $watson-burgundy;
+  text-transform: uppercase;
+  margin-top: 30px;
+  margin-left: 10px;
+  padding-left: 15px;
+  padding-top: 6px;
+  font-size: 24px;
+}
+
+.chart-label {
+	font-family: 'jaapokkiregular';
+	color: $watson-burgundy;
+}
+
+#positive, #neutral {
+	padding-right: 75px;
+}
 
 .navbar {
 	background-color: $watson-red;

@@ -1,23 +1,51 @@
 
-<%= high_chart("SampleGraph", @samplechart) %>
 
 <div class="row">
-	<span class="col-sm-3">
-	<b><%= "Big 5" %></b>
-	<% @big_5.reverse.each do |attribute| %>
-		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
-	<% end %>
-	</span>
-	<span class="col-sm-3">
-	<b><%= "Needs" %></b>
-	<% @needs.reverse.each do |attribute| %>
-		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
-	<% end %>
-	</span>
-	<span class="col-sm-3">
-	<b><%= "Values" %></b>
-	<% @values.reverse.each do |attribute| %>
-		<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
-	<% end %>
-	</span>
+	<div class="col-sm-3 user-bar">
+		<div class="profile-headers text-center"><%= @user.name %></div>
+		<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar img-rounded image-resize"%>
+		<div class="profbar-wrapper">
+			<h5> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br>
+			<%= link_to "Edit profile", "/users/#{current_user.id}/edit", class: 'navbar-links'%>
+		</h5>
+		</div>
+	</div>
+	<div class="col-sm-9">
+		<div class="chart-header">
+			Your tweets are mostly <%= @docSentimentLabel %>
+		</div>
+		<div class="chart hidden-xs">
+			<% if @docSentiment != 0.0 %>
+				<%= high_chart("SampleGraph", @samplechart) %>
+			
+			<div class="chart-label">
+				<div class="col-sm-4">Negative</div>
+				<div class="col-sm-4 text-center" id="neutral">Neutral</div>
+				<div class="col-sm-4 text-right" id="positive">Positive</div>
+			</div>
+			<% end %>
+		</div> 
+		<span class="col-sm-3 traits">
+		<div class="trait-headers"><%= "Big 5" %></div>
+
+		<% @big_5.reverse.each do |attribute| %>
+			<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+		<% end %>
+		</span>
+		<span class="col-sm-3 traits">
+		<div class="trait-headers"><%= "Needs" %></div>
+		<% @needs.reverse.each do |attribute| %>
+			<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+		<% end %>
+		</span>
+		<span class="col-sm-3 traits">
+		<div class="trait-headers"><%= "Values" %></div>
+		<% @values.reverse.each do |attribute| %>
+			<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+		<% end %>
+		</span>
+	</div>
+	<div class="col-sm-3">
+		
+	</div>
 </div>

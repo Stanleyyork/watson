@@ -5,37 +5,45 @@ class UsersController < ApplicationController
 
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
     @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
     @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
-      f.series(:name=>'John', :data=>[-0.3], :color=> '#E23246')
-      f.options[:xAxis][:reversed] = false
-      f.options[:xAxis][:labels] = { enabled:false }
-      f.options[:yAxis][:labels] = { enabled:false }
-      f.options[:yAxis][:max] = 1
-      f.options[:yAxis][:min] = -1
-      f.options[:yAxis][:tickInterval] = 1
-      f.options[:legend][:enabled] = false
-      f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'500'})
+    @docSentiment = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:relevance)[0].to_f
+    @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
+    if @docSentiment != 0.0
+      @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
+        f.series(:name=>'John', :data=>[@docSentiment], :color=> '#E23246')
+        f.options[:xAxis][:reversed] = false
+        f.options[:xAxis][:labels] = { enabled:false }
+        f.options[:yAxis][:labels] = { enabled:false }
+        f.options[:yAxis][:max] = 1
+        f.options[:yAxis][:min] = -1
+        f.options[:yAxis][:tickInterval] = 1
+        f.options[:legend][:enabled] = false
+        f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'1000'})
+      end
     end
   end
 
   def analyze_personality
     if(!Channel.where(name: "twitter").where(user_id: current_user.id).empty?)
+      Personality.where(user_id: current_user.id).where(channel_name: "twitter").delete_all
       Personality.personality(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
+      Topic.where(user_id: current_user.id).where(channel_name: "twitter").delete_all
       Topic.alchemy(current_user.id, "twitter", "#{current_user.name}'s Twitter Account")
     else
       flash[:notice] = "No twitter content to analyze"
     end
     if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
       Personality.personality(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
+      Personality.where(user_id: current_user.id).where(name: "Facebook").delete_all
       Topic.alchemy(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
+      Topic.where(user_id: current_user.id).where(channel_name: "Facebook").delete_all
     else
       flash[:notice] = "No facebook content to analyze"
     end
-    redirect_to user_path(current_user)
+    redirect_to user_path(current_user.username)
   end
 
   def twitter 
@@ -73,7 +81,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    user_params = params.require(:user).permit(:name,:email,:username)
+    user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
       redirect_to user_path(@user)
     else 
