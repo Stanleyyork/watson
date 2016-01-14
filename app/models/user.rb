@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # From paperclip
   has_attached_file :avatar, 
                     styles: { medium: "300x300>", thumb: "100x100>" }, 
-                    default_url: "assets/images/WATSON_NO_PIC.png",
+                    default_url: "WATSON_NO_PIC.png",
                     :storage => :dropbox,
                     :dropbox_credentials => {app_key: ENV['DROPBOX_KEY'], 
                                             app_secret: ENV['DROPBOX_SECRET'], 

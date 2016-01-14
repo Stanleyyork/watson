@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get '/facebookpostsretrieval' => 'users#facebook', as: 'facebook_posts_retreival'
   get '/analyzedata' => 'users#analyze_personality', as: 'analyze_data'
 
-  get '/:username' => 'users#show', as: 'user_path'
+  get '/:username' => 'users#show', as: 'user'
 
   resources :sessions, only: [:create, :destroy]
   resources :users

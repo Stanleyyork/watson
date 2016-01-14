@@ -2,15 +2,32 @@ class UsersController < ApplicationController
 
   before_filter :authorize, only: [:edit, :update, :destroy]
   
+
+
   def show
     @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
     if(Personality.where(user_id: @user.id).count > 0)
       @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
       @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
       @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @docSentiment = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:relevance)[0].to_f
+      @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
+      if @docSentiment != 0.0
+        @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
+          f.series(:name=>'Senitment', :data=>[@docSentiment], :color=> '#E23246')
+          f.options[:xAxis][:reversed] = false
+          f.options[:xAxis][:labels] = { enabled:false }
+          f.options[:yAxis][:labels] = { enabled:false }
+          f.options[:yAxis][:max] = 1
+          f.options[:yAxis][:min] = -1
+          f.options[:yAxis][:tickInterval] = 1
+          f.options[:legend][:enabled] = false
+          f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'1000'})
+        end
+      end
     else
       flash[:notice] = "Analyze tweets first"
-      redirect_to edit_user_path(current_user)
+      redirect_to edit_user_path(current_user.username)
     end
   end
 
@@ -23,7 +40,7 @@ class UsersController < ApplicationController
     else
       flash[:notice] = "No twitter content to analyze"
     end
-    redirect_to user_path(current_user)
+    redirect_to user_path(current_user.username)
   end
 
   def twitter 
