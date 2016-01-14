@@ -40,7 +40,7 @@
 * Visualize!
 
 ## Screenshots
-![Alt text](https://github.com/Stanleyyork/watson/tree/develop/app/assets/images/homepage.png?raw=true "Homepage")
-![Alt text](https://github.com/Stanleyyork/watson/tree/develop/app/assets/images/profile_a.png?raw=true "Profile")
-![Alt text](https://github.com/Stanleyyork/watson/tree/develop/app/assets/images/profile_b.png?raw=true  "Profile")
-![Alt text](https://github.com/Stanleyyork/watson/tree/develop/app/assets/images/settings.png?raw=true "Settings")
+![Alt text](https://github.com/Stanleyyork/watson/blob/develop/app/assets/images/homepage.png?raw=true "Homepage")
+![Alt text](https://github.com/Stanleyyork/watson/blob/develop/app/assets/images/profile_a.png?raw=true "Profile")
+![Alt text](https://github.com/Stanleyyork/watson/blob/develop/app/assets/images/profile_b.png?raw=true  "Profile")
+![Alt text](https://github.com/Stanleyyork/watson/blob/develop/app/assets/images/settings.png?raw=true "Settings")
