@@ -207,13 +207,14 @@ body {
 }
 
 .footer {
-  margin-top: 50px;
-  height: 50px;
-  clear: both;
-  background-color: $watson-red;
-  color: $watson-pink;
-  font-family: 'jaapokkiregular';
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	padding: 15px;
+	margin-top: 50px;
+	height: 50px;
+	clear: both;
+	background-color: $watson-red;
+	color: $watson-pink;
+	font-family: 'jaapokkiregular';
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
@@ -237,13 +238,11 @@ body {
 
 a.about {
 	color: white;
-	margin-top: -13px;
+	font-size: 18px;
 	text-decoration: none;
-}
-
-a.about:hover {
+	&:hover {
 		color: $watson-lightpeach;
-		margin-top: -13px;
+	}
 }
 
 .small-line {
@@ -281,4 +280,17 @@ a.about:hover {
 	font-size: 18px;
 	font-family: 'jaapokkiregular';
 	text-align: center;
+}
+.title {
+	text-shadow: 1px 1px $watson-lightpeach;
+}
+
+.signup-link {
+	color: $watson-peach;
+	font-size: 20px;
+	font-style: bold;
+	&:hover {
+		color: $watson-lightpeach;
+		text-decoration: none;
+	}
 }
