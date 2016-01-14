@@ -5,31 +5,38 @@
 			<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar image-resize"%>
 		</div>
 		<div class="profbar-wrapper">
-		<h5> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br><br>
-			<div class="username">
-				<%= @user.username %><br><br>
+			Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br><br>
+			<div class="user-info">
+				<div class="username">
+					<%= @user.username %><br><br>
+				</div>
+				<div class="email">
+					<%= @user.email %><br><br>
+			</div> 
 			</div>
-			<div class="email">
-				<%= @user.email %><br><br>
-			</div>
-			<%= link_to "Edit profile", "/users/#{current_user.id}/edit", class: 'navbar-links'%>
-		</h5>
+				<%= link_to "Edit profile", "/settings", class: 'navbar-links'%>
 		</div>
-		<div class="profile-footer text-center"></div>
 	</div>
 	<div class="profile-content">
+		<div class="col-md-12 banner text-center">
+			<div class="half-banner"></div>
+		</div>
 		<div class="col-sm-12">
 			<div class="chart-header text-center">
 				Your tweets are mostly <%= @docSentimentLabel %>
 			</div>
-			<div class="chart hidden-xs">
+			<div class="chart">
 				<% if @docSentiment != 0.0 %>
-					<%= high_chart("SentimentGraph", @sentimentChart) %>
-				
+					<div class="visible-lg">
+						<%= high_chart("SentimentGraphLg", @sentimentChartLg) %>
+					</div>
+					<div class="visible-xs">
+						<%= high_chart("SentimentGraphSm", @sentimentChartSm) %>
+					</div>
 				<div class="chart-label">
-					<div class="col-sm-4">Negative</div>
-					<div class="col-sm-4 text-center" id="neutral">Neutral</div>
-					<div class="col-sm-4 text-right" id="positive">Positive</div>
+					<div class="col-sm-4 col-xs-4">Negative</div>
+					<div class="col-sm-4 col-xs-4 text-center" id="neutral">Neutral</div>
+					<div class="col-sm-4 col-xs-4 text-right" id="positive">Positive</div>
 				</div>
 				<% end %>
 			</div> 

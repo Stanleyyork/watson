@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       @docSentiment = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:relevance)[0].to_f
       @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
       if @docSentiment != 0.0
-        @sentimentChart = LazyHighCharts::HighChart.new('graph') do |f|
+        @sentimentChartLg = LazyHighCharts::HighChart.new('graph') do |f|
           f.series(:name=>'Sentiment', :data=>[@docSentiment], :color=> '#E23246')
           f.options[:xAxis][:reversed] = false
           f.options[:xAxis][:labels] = { enabled:false }
@@ -23,6 +23,17 @@ class UsersController < ApplicationController
           f.options[:yAxis][:tickInterval] = 1
           f.options[:legend][:enabled] = false
           f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'1000'})
+        end
+        @sentimentChartSm = LazyHighCharts::HighChart.new('graph') do |f|
+          f.series(:name=>'Sentiment', :data=>[@docSentiment], :color=> '#E23246')
+          f.options[:xAxis][:reversed] = false
+          f.options[:xAxis][:labels] = { enabled:false }
+          f.options[:yAxis][:labels] = { enabled:false }
+          f.options[:yAxis][:max] = 1
+          f.options[:yAxis][:min] = -1
+          f.options[:yAxis][:tickInterval] = 1
+          f.options[:legend][:enabled] = false
+          f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'100', :width=>'335'})
         end
       end
       
