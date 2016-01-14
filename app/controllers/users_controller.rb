@@ -33,7 +33,7 @@ class UsersController < ApplicationController
           f.options[:yAxis][:min] = -1
           f.options[:yAxis][:tickInterval] = 1
           f.options[:legend][:enabled] = false
-          f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'100', :width=>'335'})
+          f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'100', :width=>'300'})
         end
       end
       

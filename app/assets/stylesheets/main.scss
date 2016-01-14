@@ -171,6 +171,14 @@ body {
 	color: $watson-pink;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
+.user-bar-mobile {
+	height: 205px;
+	background-color: $watson-red;
+	padding: 20px;
+	font-family: 'jaapokkiregular';
+	color: $watson-pink;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
 
 .profbar-wrapper {
 	margin: 0px 48px;
@@ -227,6 +235,21 @@ body {
 	overflow: hidden;
 }
 
+.img-rounded-mobile {
+	border: 3px solid #FCEDED;
+	border-radius: 45px 45px 45px;
+	margin-top: 10px;
+	margin-left: 35px;
+	margin-right: 60px;
+	height: auto;
+	width: 30%;
+	padding: 4px;
+	background-color: $watson-salmon;
+	-moz-box-shadow:    inset 0 0 3px #000000;
+	-webkit-box-shadow: inset 0 0 3px #000000;
+	box-shadow:         inset 0 0 3px #000000;
+	overflow: hidden;
+}
 
 .alert {
 	margin-bottom: 0px;
