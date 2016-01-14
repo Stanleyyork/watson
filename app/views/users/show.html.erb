@@ -1,5 +1,3 @@
-
-
 <div class="row">
 	<div class="col-sm-3 user-bar">
 		<div class="profile-headers text-center"><%= @user.name %></div>
@@ -11,43 +9,46 @@
 			<%= link_to "Edit profile", "/users/#{current_user.id}/edit", class: 'navbar-links'%>
 		</h5>
 		</div>
+		<div class="profile-footer text-center"></div>
 	</div>
-	<div class="col-sm-9">
-		<div class="chart-header text-center">
-			Your tweets are mostly <%= @docSentimentLabel %>
-		</div>
-		<div class="chart hidden-xs">
-			<% if @docSentiment != 0.0 %>
-				<%= high_chart("SampleGraph", @samplechart) %>
-			
-			<div class="chart-label">
-				<div class="col-sm-4">Negative</div>
-				<div class="col-sm-4 text-center" id="neutral">Neutral</div>
-				<div class="col-sm-4 text-right" id="positive">Positive</div>
+	<div class="profile-content">
+		<div class="col-sm-12">
+			<div class="chart-header text-center">
+				Your tweets are mostly <%= @docSentimentLabel %>
 			</div>
-			<% end %>
-		</div> 
-		<span class="col-sm-3 traits">
-		<div class="trait-headers"><%= "Big 5" %></div>
+			<div class="chart hidden-xs">
+				<% if @docSentiment != 0.0 %>
+					<%= high_chart("SentimentGraph", @sentimentChart) %>
+				
+				<div class="chart-label">
+					<div class="col-sm-4">Negative</div>
+					<div class="col-sm-4 text-center" id="neutral">Neutral</div>
+					<div class="col-sm-4 text-right" id="positive">Positive</div>
+				</div>
+				<% end %>
+			</div> 
+			<span class="col-sm-3 traits">
+			<div class="trait-headers"><%= "Big 5" %></div>
 
-		<% @big_5.reverse.each do |attribute| %>
-			<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
-		<% end %>
-		</span>
-		<span class="col-sm-3 traits">
-		<div class="trait-headers"><%= "Needs" %></div>
-		<% @needs.reverse.each do |attribute| %>
-			<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
-		<% end %>
-		</span>
-		<span class="col-sm-3 traits">
-		<div class="trait-headers"><%= "Values" %></div>
-		<% @values.reverse.each do |attribute| %>
-			<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
-		<% end %>
-		</span>
-	</div>
-	<div class="col-sm-3">
-		
+			<% @big_5.reverse.each do |attribute| %>
+				<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+			<% end %>
+			</span>
+			<span class="col-sm-3 traits">
+			<div class="trait-headers"><%= "Needs" %></div>
+			<% @needs.reverse.each do |attribute| %>
+				<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+			<% end %>
+			</span>
+			<span class="col-sm-3 traits">
+			<div class="trait-headers"><%= "Values" %></div>
+			<% @values.reverse.each do |attribute| %>
+				<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
+			<% end %>
+			</span>
+		</div>
+		<div class="col-sm-5 col-sm-offset-2">
+			<%= high_chart("NeedsGraph", @needsChart) %>
+		</div>
 	</div>
 </div>
