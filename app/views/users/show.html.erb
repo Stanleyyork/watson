@@ -5,7 +5,13 @@
 			<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar image-resize"%>
 		</div>
 		<div class="profbar-wrapper">
-			<h5> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br>
+		<h5> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br><br>
+			<div class="username">
+				<%= @user.username %><br><br>
+			</div>
+			<div class="email">
+				<%= @user.email %><br><br>
+			</div>
 			<%= link_to "Edit profile", "/users/#{current_user.id}/edit", class: 'navbar-links'%>
 		</h5>
 		</div>
