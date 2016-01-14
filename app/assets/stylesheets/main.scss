@@ -125,9 +125,11 @@ body {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-.signup-form {
+.signup-form, .login-form {
 	background-color: $watson-pink;
 	border: 2px solid $watson-salmon;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 .headers {
@@ -201,15 +203,13 @@ body {
 }
 
 .wrapper {
-	overflow:auto;
-  padding-bottom: 50px; /* must be same height as the footer */
+	overflow: auto;
 }
 
 .footer {
-  position: relative;
-  margin-top: -50px; /* negative value of footer height */
+  margin-top: 50px;
   height: 50px;
-  clear:both;
+  clear: both;
   background-color: $watson-red;
   color: $watson-pink;
   font-family: 'jaapokkiregular';
