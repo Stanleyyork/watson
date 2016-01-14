@@ -75,7 +75,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @user = User.find(current_user.id)
     user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
       flash[:notice] = "Updated!"
@@ -89,6 +89,7 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     @twitter_count = Channel.where(user_id: current_user.id).where(name: "twitter").count
+    @personality_count = Personality.where(user_id: current_user.id).count
   end
 
   def destroy
