@@ -58,19 +58,20 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @user = User.find(current_user.id)
     user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
       flash[:notice] = "Updated!"
-      redirect_to edit_user_path
+      redirect_to "/settings"
     else 
       flash[:notice] = @user.errors.map{|k,v| "#{k} #{v}".capitalize}
-      redirect_to edit_user_path
+      redirect_to "/settings"
     end
   end
 
   def edit
-    @user = current_user
+    @user = User.find(current_user.id)
+    puts @user
     @twitter_count = Channel.where(user_id: current_user.id).where(name: "twitter").count
   end
 

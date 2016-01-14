@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
 
   get '/signup' => 'users#new'
+  patch '/:id' => 'users#update'
   post '/users' => 'users#create'
 
   get '/books' => 'channels#booksIndex'
