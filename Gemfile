@@ -48,6 +48,7 @@ gem "paperclip-dropbox", ">= 1.1.7"
 # Use bootstrap for styling
 gem 'bootstrap-sass', '~> 3.3.6'
 
+gem 'lazy_high_charts'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

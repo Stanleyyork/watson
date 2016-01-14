@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+//= require settings.js
