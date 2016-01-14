@@ -74,8 +74,11 @@
 			<% end %>
 			</span>
 		</div>
-		<div class="col-sm-5 col-sm-offset-2">
-			<%= high_chart("NeedsGraph", @needsChart) %>
+		<div class="col-sm-5 col-sm-offset-2 hidden-xs">
+			<%= high_chart("NeedsGraphLg", @needsChartLg) %>
+		</div>
+		<div class="col-xs-10 col-xs-offset-1 visible-xs">
+			<%= high_chart("NeedsGraphSm", @needsChartSm) %>
 		</div>
 	</div>
 </div>

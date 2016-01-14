@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       # Gather Value and Labels for needs chart
       @needsValues = @needs.map{|x|(x[1]*100).round}
       @needsLabels = @needs.map{|x|(x[0])}
-      @needsChart = LazyHighCharts::HighChart.new('graph') do |f|
+      @needsChartLg = LazyHighCharts::HighChart.new('graph') do |f|
         f.series(:name=>'Needs', :type=>'area', :data=>@needsValues, :color=> '#E23246')
         f.plotOptions(series: { :pointStart=>0, :pointInterval=>45})
         f.plotOptions(column: { :pointPadding=>0, :groupPadding=>0})
@@ -52,6 +52,19 @@ class UsersController < ApplicationController
         f.options[:xAxis][:categories] = @needsLabels
         f.options[:legend][:enabled] = false
         f.chart({:polar => true, :backgroundColor=>'#FCEDED',:height=>'600', :width=>'600'})
+      end
+      @needsChartSm = LazyHighCharts::HighChart.new('graph') do |f|
+        f.series(:name=>'Needs', :type=>'area', :data=>@needsValues, :color=> '#E23246')
+        f.plotOptions(series: { :pointStart=>0, :pointInterval=>45})
+        f.plotOptions(column: { :pointPadding=>0, :groupPadding=>0})
+        f.xAxis[:tickInterval] = 45
+        f.xAxis[:min] = 0
+        f.xAxis[:max] = 360
+        f.yAxis[:min] = 0
+        f.options[:yAxis][:labels] = { enabled:false }
+        f.options[:xAxis][:categories] = @needsLabels
+        f.options[:legend][:enabled] = false
+        f.chart({:polar => true, :backgroundColor=>'#FCEDED',:height=>'300', :width=>'300'})
       end
     else
       flash[:notice] = "Analyze tweets first"
