@@ -60,6 +60,10 @@ body {
 	color: $watson-burgundy;
 }
 
+.highcharts-background {
+	overflow: visible;
+}
+
 #positive, #neutral {
 	padding-right: 75px;
 }
@@ -147,7 +151,7 @@ body {
 /* Profile page*/
 
 .user-bar {
-	height: 100%;
+	height:100%;
 	background-color: $watson-red;
 	padding: 20px;
 	font-family: 'jaapokkiregular';
@@ -170,6 +174,18 @@ body {
 	height: 60px;
 	font-size: 24px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.profile-footer {
+	background-color: $watson-salmon;
+	height: 30px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	margin: 15px -20px -11px -20px;
+}
+
+.profile-content {
+	height:100vh;
+	overflow-y:auto
 }
 
 .traits {
@@ -206,6 +222,21 @@ body {
 	overflow: auto;
 }
 
+.username {
+	background-color: $watson-peach;
+	margin: -5px -70px;
+	padding-left: 70px;
+	padding-top: 15px;
+	font-size: 18px;
+}
+
+.email {
+	background-color: $watson-salmon;
+	margin: 0px -70px 13px;
+	padding-left: 70px;
+	padding-top: 15px;
+}
+
 .footer {
 	padding: 15px;
 	margin-top: 50px;
@@ -216,7 +247,7 @@ body {
 	font-family: 'jaapokkiregular';
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .div.hidden { 
