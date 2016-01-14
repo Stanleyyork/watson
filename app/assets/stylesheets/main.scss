@@ -6,7 +6,30 @@ $watson-peach: #E78D67;
 $watson-lightpeach: #FFB072;
 $watson-pink: #FCEDED;
 
+.about-body {
+	margin-left: 50px;
+	margin-top: 50px;
+	margin-bottom: 100px;
+	margin-right: 50px;
+}
 
+#team-pic {
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#about-title {
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+#meet-team {
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 25px;
+}
 
 body {
 	background-color: $watson-pink;
