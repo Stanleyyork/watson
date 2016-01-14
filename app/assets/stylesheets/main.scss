@@ -129,9 +129,11 @@ body {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-.signup-form {
+.signup-form, .login-form {
 	background-color: $watson-pink;
 	border: 2px solid $watson-salmon;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 .headers {
@@ -217,8 +219,7 @@ body {
 }
 
 .wrapper {
-	overflow:auto;
-  padding-bottom: 50px; /* must be same height as the footer */
+	overflow: auto;
 }
 
 .username {
@@ -237,7 +238,7 @@ body {
 }
 
 .footer {
-	position: relative;
+  position: relative;
   margin-top: -59px;
   height: 59px;
   clear: both;
