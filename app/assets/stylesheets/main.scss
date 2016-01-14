@@ -222,3 +222,60 @@ body {
 #progress-bar-check {
 	float:right;
 }
+
+/* Homepage */
+.jumbotron {
+	background-color: $watson-pink;
+	padding-top: 77px;
+	padding-left: 5%;
+	color: $watson-salmon;
+	font-family: 'jaapokkiregular';
+}
+
+a.about {
+	color: white;
+	margin-top: -13px;
+	text-decoration: none;
+}
+
+a.about:hover {
+		color: $watson-lightpeach;
+		margin-top: -13px;
+}
+
+.small-line {
+	background-color: $watson-peach;
+    height: 2px;
+}
+
+.homepage-text {
+	border: 3px solid $watson-burgundy;
+	border-radius: 5px 45px 5px;
+	margin-top: 15px;
+	padding: 4px;
+	-moz-box-shadow:    inset 0 0 3px #000000;
+	-webkit-box-shadow: inset 0 0 3px #000000;
+	box-shadow:         inset 0 0 3px #000000;
+}
+
+.explanation {
+	color: $watson-burgundy;
+	padding-left: 5%;
+}
+
+.round-image {
+	width: 140px;
+}
+
+.subheading {
+	font-style: italic;
+	font-family: 'jaapokkiregular';
+	color: $watson-burgundy;
+	padding-left: 10%;
+}
+
+.homepage-text {
+	font-size: 18px;
+	font-family: 'jaapokkiregular';
+	text-align: center;
+}
