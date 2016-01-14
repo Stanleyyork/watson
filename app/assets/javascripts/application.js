@@ -18,4 +18,4 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
-
+//= require settings.js

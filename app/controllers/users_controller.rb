@@ -6,23 +6,27 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_username(params[:username]) || User.find_by_username(params[:username].capitalize)
-    @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
-    @docSentiment = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:relevance)[0].to_f
-    @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
-    if @docSentiment != 0.0
-      @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
-        f.series(:name=>'John', :data=>[@docSentiment], :color=> '#E23246')
-        f.options[:xAxis][:reversed] = false
-        f.options[:xAxis][:labels] = { enabled:false }
-        f.options[:yAxis][:labels] = { enabled:false }
-        f.options[:yAxis][:max] = 1
-        f.options[:yAxis][:min] = -1
-        f.options[:yAxis][:tickInterval] = 1
-        f.options[:legend][:enabled] = false
-        f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'1000'})
-      end
+    if(Personality.where(user_id: @user.id).count > 0)
+      @big_5 = Personality.where(user_id: @user.id).where(category: "Big 5").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @needs = Personality.where(user_id: @user.id).where(category: "Needs").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @values = Personality.where(user_id: @user.id).where(category: "Values").group(:attribute_name).average(:percentage).sort_by{|k,v| v}
+      @docSentiment = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:relevance)[0].to_f
+      @docSentimentLabel = Topic.where(user_id: @user.id).where(name: "Document Sentiment").pluck(:label)[0]
+      if @docSentiment != 0.0
+        @samplechart = LazyHighCharts::HighChart.new('graph') do |f|
+          f.series(:name=>'John', :data=>[@docSentiment], :color=> '#E23246')
+          f.options[:xAxis][:reversed] = false
+          f.options[:xAxis][:labels] = { enabled:false }
+          f.options[:yAxis][:labels] = { enabled:false }
+          f.options[:yAxis][:max] = 1
+          f.options[:yAxis][:min] = -1
+          f.options[:yAxis][:tickInterval] = 1
+          f.options[:legend][:enabled] = false
+          f.chart({:defaultSeriesType=>"bar", :backgroundColor=>'#FCEDED', :height=>'125', :width=>'1000'})
+        end
+    else
+      flash[:notice] = "Analyze tweets first"
+      redirect_to edit_user_path(current_user.username)
     end
   end
 
@@ -35,55 +39,29 @@ class UsersController < ApplicationController
     else
       flash[:notice] = "No twitter content to analyze"
     end
-    if(!Channel.where(name: "Facebook").where(user_id: current_user.id).empty?)
-      Personality.personality(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
-      Personality.where(user_id: current_user.id).where(name: "Facebook").delete_all
-      Topic.alchemy(current_user.id, "Facebook", "#{current_user.name}'s Facebook Account")
-      Topic.where(user_id: current_user.id).where(channel_name: "Facebook").delete_all
-    else
-      flash[:notice] = "No facebook content to analyze"
-    end
     redirect_to user_path(current_user.username)
   end
 
   def twitter 
-    @twitter_username = params['user']['twitter_username']
+    @twitter_username = params[:twitter_username]
     @user = current_user
     @user.twitter_username = @twitter_username
     @user.save
     if Channel.where(user_id: @user.id).where(name: "twitter").first.nil?
       TwitterInfo.new.public_tweets(@twitter_username, current_user.id)
-      flash[:notice] = "Stored tweets successfully!"
-      redirect_to edit_user_path(current_user)
+      render :text => "Stored tweets successfully!"
     else
       flash[:notice] = "Already stored tweets"
-      redirect_to edit_user_path(current_user)
+      redirect_to edit_user_path(current_user.username)
     end
-  end
-
-  def facebook
-    @graph = Koala::Facebook::API.new(current_user.facebook_access_token)
-    if(Channel.where(user_id: current_user.id).where(name: "Facebook").first.nil?)
-      feed = @graph.get_connections("me", "feed")
-      feed.each do |f|
-        puts f
-        c = Channel.new(content: f['message'])
-        c.user_id = current_user.id
-        c.name = "Facebook"
-        c.date = f['created_time']
-        c.year = (f['created_time'].to_s)[0..3]
-        c.num_entries = 1
-        c.save
-      end
-    end
-    redirect_to edit_user_path(current_user)
   end
 
   def update
     @user = current_user
     user_params = params.require(:user).permit(:name,:email,:username, :avatar)
     if @user.update_attributes(user_params)
-      redirect_to user_path(@user)
+      flash[:notice] = "Updated!"
+      redirect_to edit_user_path
     else 
       flash[:notice] = @user.errors.map{|k,v| "#{k} #{v}".capitalize}
       redirect_to edit_user_path
@@ -93,7 +71,6 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     @twitter_count = Channel.where(user_id: current_user.id).where(name: "twitter").count
-    @facebook_count = Channel.where(user_id: current_user.id).where(name: "Facebook").count
   end
 
   def destroy
