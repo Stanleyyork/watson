@@ -34,8 +34,8 @@
 * Leverage personal analysis for recommendation engine (books, events, etc.)
 
 ## Instructions
-* Example: http://www.districtfive.herokuapp.com/stanleyyork
-* Go here to register: http://www.districtfive.herokuapp.com/signup
+* Example: http://districtfive.herokuapp.com/stanleyyork
+* Go here to register: http://districtfive.herokuapp.com/signup
 * Retrieve and analyze tweets
 * Visualize!
 
