@@ -34,7 +34,7 @@ class TwitterInfo
   # Save each individual tweet to db
   def save_data(results, user_id)
     puts 'save_data'
-    r = results.map{|t| {content: t.text, user_id: user_id, date: t.created_at, name: "twitter", year: t.created_at.year, num_entries: 1, subname: "account: #{t.user.screen_name}"}}
+    r = results[0..999].map{|t| {content: t.text, user_id: user_id, date: t.created_at, name: "twitter", year: t.created_at.year, num_entries: 1, subname: "account: #{t.user.screen_name}"}}
     Channel.create(r)
   end
 end
