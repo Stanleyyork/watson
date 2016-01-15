@@ -30,7 +30,7 @@
 
 ## Planned/Future Features
 
-* More personal content anlaysis (e.g. facebook, articles or books read, etc.) 
+* More personal content analysis (e.g. facebook, articles or books read, etc.) 
 * Leverage personal analysis for recommendation engine (books, events, etc.)
 
 ## Instructions
