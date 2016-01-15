@@ -34,6 +34,11 @@ $watson-pink: #FCEDED;
 body {
 	background-color: $watson-pink;
 	padding-top: 77px;
+	overflow-x: hidden 
+}
+
+.content-wrapper {
+	overflow: hidden; 
 }
 
 .logo {
@@ -42,6 +47,11 @@ body {
 	height: 60px;
 }
 
+.chart {
+	margin-left: 22px;
+}
+
+
 .chart-header {
   width: 93%;
   height: 30px;
@@ -49,7 +59,7 @@ body {
   color: $watson-burgundy;
   text-transform: uppercase;
   margin-top: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   padding-left: 15px;
   padding-top: 6px;
   font-size: 31px;
@@ -65,7 +75,7 @@ body {
 }
 
 #positive, #neutral {
-	padding-right: 75px;
+	padding-right: 40px;
 }
 
 .navbar {
@@ -76,6 +86,11 @@ body {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 	height: 79px;
 	font-family: 'jaapokkiregular';
+}
+
+.collapse {
+	background-color: $watson-red;
+	border: none;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -112,21 +127,19 @@ body {
 
 .banner {
 	background-color: $watson-peach;
-	height: 200px;
+	height: 100px;
+	overflow-x: hidden;
+	position: inherit;
 }
 
 .half-banner {
   position: absolute;
   top: 2px;
-  left: 0px;
-  width: 100%;
-  height: 100px;
+  margin-left: -20px;
+  width: 2000px;
+  height: 50px;
   background-color: $watson-salmon;
-}
-
-.container {
-	background-color: $watson-red;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  position: inherit;
 }
 
 .signup-form, .login-form {
@@ -151,16 +164,24 @@ body {
 /* Profile page*/
 
 .user-bar {
-	height:100%;
+	height:100vh;
 	background-color: $watson-red;
 	padding: 20px;
 	font-family: 'jaapokkiregular';
 	color: $watson-pink;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+.user-bar-mobile {
+	height: 205px;
+	background-color: $watson-red;
+	padding: 20px;
+	font-family: 'jaapokkiregular';
+	color: $watson-pink;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .profbar-wrapper {
 	margin: 0px 48px;
-	
 }
 
 .profile-headers {
@@ -179,13 +200,23 @@ body {
 .profile-footer {
 	background-color: $watson-salmon;
 	height: 30px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.5);
 	margin: 15px -20px -11px -20px;
 }
 
 .profile-content {
 	height:100vh;
-	overflow-y:auto
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .profile-content {
+   text-align: center;
+   height:100vh;
+   overflow-y: scroll;
+   overflow-x: hidden;
+  } 
 }
 
 .traits {
@@ -201,7 +232,7 @@ body {
 .img-rounded {
 	border: 3px solid #FCEDED;
 	border-radius: 5px 45px 5px;
-	margin-left: 35px;
+	margin-left: 22px;
 	margin-top: 37px;
 	height: auto;
 	width: 85%;
@@ -213,42 +244,46 @@ body {
 	overflow: hidden;
 }
 
+.img-rounded-mobile {
+	border: 3px solid #FCEDED;
+	border-radius: 45px 45px 45px;
+	margin-top: 10px;
+	margin-left: 35px;
+	margin-right: 60px;
+	height: auto;
+	width: 30%;
+	padding: 4px;
+	background-color: $watson-salmon;
+	-moz-box-shadow:    inset 0 0 3px #000000;
+	-webkit-box-shadow: inset 0 0 3px #000000;
+	box-shadow:         inset 0 0 3px #000000;
+	overflow: hidden;
+}
 
 .alert {
 	margin-bottom: 0px;
 }
 
-.wrapper {
-	overflow: auto;
+.user-info {
+	box-shadow: -1px 0px 4px rgba(0, 0, 0, 0.5);
+	margin: 0px -70px 13px;
 }
 
 .username {
 	background-color: $watson-peach;
-	margin: -5px -70px;
 	padding-left: 70px;
 	padding-top: 15px;
 	font-size: 18px;
+	height: 55px;
 }
 
 .email {
 	background-color: $watson-salmon;
-	margin: 0px -70px 13px;
 	padding-left: 70px;
 	padding-top: 15px;
+	height: 55px
 }
 
-.footer {
-	padding: 15px;
-	margin-top: 50px;
-	height: 50px;
-	clear: both;
-	background-color: $watson-red;
-	color: $watson-pink;
-	font-family: 'jaapokkiregular';
-	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-}
 
 .div.hidden { 
 	display: none;
@@ -260,11 +295,12 @@ body {
 
 /* Homepage */
 .jumbotron {
-	background-color: $watson-pink;
+	background-color: $watson-salmon;
 	padding-top: 77px;
 	padding-left: 5%;
-	color: $watson-salmon;
+	color: $watson-pink;
 	font-family: 'jaapokkiregular';
+	box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 a.about {
@@ -281,40 +317,51 @@ a.about {
     height: 2px;
 }
 
-.homepage-text {
-	border: 3px solid $watson-burgundy;
-	border-radius: 5px 45px 5px;
-	margin-top: 15px;
-	padding: 4px;
-	-moz-box-shadow:    inset 0 0 3px #000000;
-	-webkit-box-shadow: inset 0 0 3px #000000;
-	box-shadow:         inset 0 0 3px #000000;
+.homepage-body {
+	color: $watson-pink;
+	font-family: 'jaapokkiregular';
+	font-size: 100px;
+	background-color: $watson-red;
+	height: 100%;
+	margin-top: -20px;
+	padding-top: 50px;
 }
 
-.explanation {
-	color: $watson-burgundy;
-	padding-left: 5%;
+.homepage-text {
+	color: $watson-pink;
+	margin: 15px -15px 20px -15px;
+	font-size: 18px;
+	font-family: 'jaapokkiregular';
+	text-align: center;
+	padding: 10px;
 }
 
 .round-image {
+	margin-top: 20px;
 	width: 140px;
+}
+
+.title {
+	font-size: 100px;
+	margin-bottom: 10px;
+	color: $watson-pink;
+}
+
+@media (max-width: 768px) {
+  .title {
+   font-size: 50px;
+   margin-bottom: 65px;
+   color: $watson-pink;
+  } 
 }
 
 .subheading {
 	font-style: italic;
 	font-family: 'jaapokkiregular';
-	color: $watson-burgundy;
-	padding-left: 10%;
+	color: $watson-pink;
+	text-align: left;
 }
 
-.homepage-text {
-	font-size: 18px;
-	font-family: 'jaapokkiregular';
-	text-align: center;
-}
-.title {
-	text-shadow: 1px 1px $watson-lightpeach;
-}
 
 .signup-link {
 	color: $watson-peach;
@@ -324,6 +371,20 @@ a.about {
 		color: $watson-lightpeach;
 		text-decoration: none;
 	}
+}
+
+
+.footer {
+	padding: 15px;
+	height: 50px;
+	position: relative;
+	clear: both;
+	background-color: $watson-red;
+	color: $watson-pink;
+	font-family: 'jaapokkiregular';
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: -1px 0px 4px rgba(0, 0, 0, 0.5);
 }
 
 a.descriptors {

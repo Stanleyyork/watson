@@ -1,56 +1,96 @@
-<div class="col-xs-7 col-sm-7 col-md-4 col-xs-offset-4 col-sm-offset-4  col-md-offset-4 signup-form">
-	<div class="headers text-center">
-		<h1>Edit your profile</h1>
-	</div>
-
-	<% if @twitter_count == 0 %>
-		<br>
-		<div class="tweets" id="retrieve-tweets">
-			<p id="progress-bar-check"></p>
-			<div class="progress hidden">
-			  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 1%" id="progress_bar">
-			  </div>
+<div class="row">
+	<div class="col-sm-3 user-bar hidden-xs">
+		<div class="profile-headers text-center"><%= @user.name %></div>
+		<div class="img-rounded">
+			<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar image-resize"%>
+		</div>
+		<div class="profbar-wrapper">
+			Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br><br>
+			<div class="user-info">
+				<div class="username">
+					<%= @user.username %><br><br>
+				</div>
+				<div class="email">
+					<%= @user.email %><br><br>
+				</div> 
 			</div>
-			<form id="retrieve-tweets-submit">
-			  	<div class="form-group">
-			    	<input type="text" name="twitter_username" id="twitter_username" class="form-control" placeholder="">
-			  	</div>
-			  	<div class="form-group">
-			    	<input type="submit" class="btn btn-default" value="Submit">
-			  	</div>
-			</form>
-		</div>		
-	<% end %>
-
-	<div class="analyze hidden" id="analyze-tweets">
-		<%= link_to "Analyze Twitter Data", analyze_data_path, class: 'btn btn-info', data: (@personality_count > 0 ? { confirm: 'Are you sure?' } : nil) %>
+		</div>
 	</div>
+	<div class="col-sm-3 user-bar-mobile  visible-xs">
+		<div class="profile-headers text-center"><%= @user.name %></div>
+		<div class="img-rounded-mobile col-xs-3">
+			<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar image-resize"%>
+		</div>
+		<div class="profbar-wrapper">
+			<div class="user-info">
+				<div class="username">
+					<%= @user.username %><br><br>
+				</div>
+				<div class="email">
+					<%= @user.email %><br><br>
+				</div> 
+			</div>
+		</div>
+	</div>
+	<div class="profile-content">
+	<div class="col-md-12 banner text-center">
+			<div class="half-banner"></div>
+		</div>
+		<div class="col-xs-10 col-sm-7 col-md-6 col-xs-offset-1 col-sm-offset-4  col-md-offset-3 signup-form">
+			<div class="headers text-center">
+				<h1>Edit your profile</h1>
+			</div>
 
-	<% if @twitter_count > 0 %>
-		<br>
-			<%= link_to "Analyze Twitter Data", analyze_data_path, class: 'btn btn-info', data: (@personality_count > 0 ? { confirm: 'Are you sure?' } : nil) %><i><%= " Already pulled Tweets" %></i>
-		<br>
-	<% end %>
-	<br>
-	<%= form_for @user, html: { multipart: true } do |f| %>
-		<div class="form-group">
-			<%= f.label :avatar %>
-			<%= f.file_field :avatar, class: "form-control" %>
+			<% if @twitter_count == 0 %>
+				<br>
+				<div class="tweets" id="retrieve-tweets">
+					<p id="progress-bar-check"></p>
+					<div class="progress hidden">
+					  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 1%" id="progress_bar">
+					  </div>
+					</div>
+					<form id="retrieve-tweets-submit">
+					  	<div class="form-group">
+					    	<input type="text" name="twitter_username" id="twitter_username" class="form-control" placeholder="">
+					  	</div>
+					  	<div class="form-group">
+					    	<input type="submit" class="btn btn-default" value="Submit">
+					  	</div>
+					</form>
+				</div>		
+			<% end %>
+
+			<div class="analyze hidden" id="analyze-tweets">
+				<%= link_to "Analyze Twitter Data", analyze_data_path, class: 'btn btn-info', data: (@personality_count > 0 ? { confirm: 'Are you sure?' } : nil) %>
+			</div>
+
+			<% if @twitter_count > 0 %>
+				<br>
+					<%= link_to "Analyze Twitter Data", analyze_data_path, class: 'btn btn-info', data: (@personality_count > 0 ? { confirm: 'Are you sure?' } : nil) %><i><%= " Already pulled Tweets" %></i>
+				<br>
+			<% end %>
+			<br>
+			<%= form_for @user, html: { multipart: true } do |f| %>
+				<div class="form-group">
+					<%= f.label :avatar %>
+					<%= f.file_field :avatar, class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= f.label :username %>
+					<%= f.text_field :username, class: "form-control"%>
+				</div>
+				<div class="form-group">
+					<%= f.label :name %>
+					<%= f.text_field :name, class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= f.label :email %>
+					<%= f.text_field :email, class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= f.submit "Submit", class: 'btn btn-default' %>
+				</div>
+			<% end %>
 		</div>
-		<div class="form-group">
-			<%= f.label :username %>
-			<%= f.text_field :username, class: "form-control"%>
-		</div>
-		<div class="form-group">
-			<%= f.label :name %>
-			<%= f.text_field :name, class: "form-control" %>
-		</div>
-		<div class="form-group">
-			<%= f.label :email %>
-			<%= f.text_field :email, class: "form-control" %>
-		</div>
-		<div class="form-group">
-			<%= f.submit "Submit", class: 'btn btn-default' %>
-		</div>
-	<% end %>
+	</div>
 </div>

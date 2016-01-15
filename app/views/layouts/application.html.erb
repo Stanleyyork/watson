@@ -8,7 +8,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="wrapper">
+    <div class="content-wrapper">
 
       <!-- navbar -->
       <%= render partial: '/layouts/nav' %>
@@ -29,7 +29,7 @@
       <% end %>
       <%= yield %>
     </div>
-    <div class="footer text-center">
+    <div class="footer text-center hidden-xs">
       <a class="about" href="/about">About</a>
     </div>
   </body>
