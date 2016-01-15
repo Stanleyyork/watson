@@ -48,4 +48,9 @@ $(function() {
 		},300);
 	}
 
+	$(function () {
+  $('[data-toggle="popover"]').popover({ container: 'body' });
+});
+
+
 });

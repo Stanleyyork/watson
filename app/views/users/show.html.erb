@@ -1,60 +1,118 @@
-<div class="row">
-	<div class="col-sm-3 user-bar">
+<div class="col-sm-3 user-bar hidden-xs">
 		<div class="profile-headers text-center"><%= @user.name %></div>
 		<div class="img-rounded">
 			<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar image-resize"%>
 		</div>
 		<div class="profbar-wrapper">
-		<h5> Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br><br>
-			<div class="username">
-				<%= @user.username %><br><br>
+			Joined on <%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %><br><br><br>
+			<div class="user-info">
+				<div class="username">
+					<%= @user.username %><br><br>
+				</div>
+				<div class="email">
+					<%= @user.email %><br><br>
+				</div> 
 			</div>
-			<div class="email">
-				<%= @user.email %><br><br>
-			</div>
-			<%= link_to "Edit profile", "/users/#{current_user.id}/edit", class: 'navbar-links'%>
-		</h5>
 		</div>
-		<div class="profile-footer text-center"></div>
+	</div>
+	<div class="col-sm-3 user-bar-mobile  visible-xs">
+		<div class="profile-headers text-center"><%= @user.name %></div>
+		<div class="img-rounded-mobile col-xs-3">
+			<%= image_tag @user.avatar.url(:medium), class: "img-responsive avatar image-resize"%>
+		</div>
+		<div class="profbar-wrapper">
+			<div class="user-info">
+				<div class="username">
+					<%= @user.username %><br><br>
+				</div>
+				<div class="email">
+					<%= @user.email %><br><br>
+				</div> 
+			</div>
+		</div>
 	</div>
 	<div class="profile-content">
+		<div class="col-md-12 banner text-center">
+			<div class="half-banner"></div>
+		</div>
 		<div class="col-sm-12">
 			<div class="chart-header text-center">
 				Your tweets are mostly <%= @docSentimentLabel %>
 			</div>
-			<div class="chart hidden-xs">
+			<div class="chart">
 				<% if @docSentiment != 0.0 %>
-					<%= high_chart("SentimentGraph", @sentimentChart) %>
-				
+					<div class="visible-lg">
+						<%= high_chart("SentimentGraphLg", @sentimentChartLg) %>
+					</div>
+					<div class="visible-xs">
+						<%= high_chart("SentimentGraphSm", @sentimentChartSm) %>
+					</div>
 				<div class="chart-label">
-					<div class="col-sm-4">Negative</div>
-					<div class="col-sm-4 text-center" id="neutral">Neutral</div>
-					<div class="col-sm-4 text-right" id="positive">Positive</div>
+					<div class="col-sm-4 col-xs-4">Negative</div>
+					<div class="col-sm-4 col-xs-4 text-center" id="neutral">Neutral</div>
+					<div class="col-sm-4 col-xs-4 text-right" id="positive">Positive</div>
 				</div>
 				<% end %>
 			</div> 
 			<span class="col-sm-3 traits">
-			<div class="trait-headers"><%= "Big 5" %></div>
+				<div class="trait-headers"><a class="descriptors" tabindex="0" data-trigger="focus" data-toggle="popover" data-placement="top" data-container="body" data-content="How a person engages with the world. The Big Five:
+					Agreeableness,
+					Conscientiousness,
+					Extraversion,
+					Emotional Range, and 
+					Openness. These dimensions are further characterized into subdimensions."><%= "Big 5" %></a>
 
+				<!-- Generated markup by the plugin -->
+				<div class="tooltip top" role="tooltip">
+				  <div class="tooltip-arrow"></div>
+				  <div class="tooltip-inner">
+
+			  	  </div>
+				</div>
+			</div>
+			
 			<% @big_5.reverse.each do |attribute| %>
 				<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
 			<% end %>
 			</span>
 			<span class="col-sm-3 traits">
-			<div class="trait-headers"><%= "Needs" %></div>
+			<div class="trait-headers"><a class="descriptors" tabindex="0" data-trigger="focus" data-toggle="popover" data-placement="top" data-container="body" data-content="Describes at a high level which aspects of a product are likely to resonate with the writer of the content."><%= "Needs" %></a>
+
+			<!-- Generated markup by the plugin -->
+			<div class="tooltip top" role="tooltip">
+			  <div class="tooltip-arrow"></div>
+			  <div class="tooltip-inner">
+			    
+			  </div>
+			</div>
+			</div>
+
 			<% @needs.reverse.each do |attribute| %>
 				<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
 			<% end %>
 			</span>
 			<span class="col-sm-3 traits">
-			<div class="trait-headers"><%= "Values" %></div>
+			<div class="trait-headers"><a class="descriptors" tabindex="0" data-trigger="focus" data-toggle="popover" data-placement="top" data-container="body" data-content="Motivating factors that influence decision-making: Self-transcendence, Conservation, Hedonism, Self-enhancement, and Open to change."><%= "Values" %></a>
+
+			<!-- Generated markup by the plugin -->
+			<div class="tooltip top" role="tooltip">
+			  <div class="tooltip-arrow"></div>
+			  <div class="tooltip-inner">
+			    Some tooltip text!
+			  </div>
+			</div>
+
+			</div>
 			<% @values.reverse.each do |attribute| %>
 				<li><%= "#{attribute[0]}: #{(attribute[1].to_f*100).round(2)}%" %></li>
 			<% end %>
 			</span>
 		</div>
-		<div class="col-sm-5 col-sm-offset-2">
-			<%= high_chart("NeedsGraph", @needsChart) %>
+		<div class="col-sm-5 col-sm-offset-2 hidden-xs">
+			<%= high_chart("NeedsGraphLg", @needsChartLg) %>
+		</div>
+		<div class="col-xs-10 col-xs-offset-1 visible-xs">
+			<%= high_chart("NeedsGraphSm", @needsChartSm) %>
 		</div>
 	</div>
 </div>
