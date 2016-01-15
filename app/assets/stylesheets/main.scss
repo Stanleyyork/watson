@@ -325,3 +325,11 @@ a.about {
 		text-decoration: none;
 	}
 }
+
+a.descriptors {
+	color: $watson-peach;
+	&:hover {
+		color: $watson-lightpeach;
+		text-decoration: none;
+	}
+}
