@@ -224,9 +224,11 @@ body {
 }
 
 .trait-headers {
+	font-size: 32px;
 	font-family: 'jaapokkiregular';
-	color: $watson-burgundy;
+	color: #7F1B1B;
 	text-transform: uppercase;
+	margin-top: 32px;
 }
 
 .img-rounded {
@@ -389,8 +391,12 @@ a.about {
 
 a.descriptors {
 	color: $watson-peach;
+	cursor: pointer;
 	&:hover {
 		color: $watson-lightpeach;
 		text-decoration: none;
+	}
+	&:focus {
+		outline:0;
 	}
 }

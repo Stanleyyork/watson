@@ -16,10 +16,12 @@
     <div class="collapse navbar-collapse" id="watson-navbar">
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
+        <li><%= link_to "Home", "/", class: "navbar-links visible-xs" %></li>
         <li><%= link_to "Profile", "/#{current_user.username}", class: "navbar-links" %></li>
         <li><%= link_to "Settings", '/settings', class: "navbar-links" %></li>
         <li><%= link_to "Log out", logout_path, class: "navbar-links" %></li>
         <% else %>
+        <li><%= link_to "Home", "/", class: "navbar-links visible-xs" %></li>
         <li><%= link_to "Sign up", new_user_path, class: "navbar-links" %></li>
         <li><%= link_to "Log in", login_path, class: "navbar-links" %></li>
         <% end %>
