@@ -19,7 +19,7 @@ class PersonalityAPICall
 		if(channel_name.downcase == "book")
 			body = open(channel_url, :ssl_verify_mode=>OpenSSL::SSL::VERIFY_NONE)
 		elsif(channel_name.downcase == "twitter" || channel_name == "Facebook")
-			body = Channel.where(user_id: user_id).where(name: channel_name).pluck(:content).join(" ")
+			body = Channel.where(user_id: user_id).where(name: channel_name).pluck(:content).join(" ").gsub!(/[^0-9A-Za-z]/, ' ')
 		else
 			return "Channel not recognized"
 		end
@@ -30,7 +30,7 @@ class PersonalityAPICall
 			  'Accept'           => "application/json",
 			  'Accept-Language'  => "en",
 			  'Content-Language' => "en",
-			  'body'             => body.gsub!(/[^0-9A-Za-z]/, ' ')
+			  'body'             => body
 			  )
 			ParseAndSave(JSON.parse(result.body), user_id, channel_name, title)
 		end
