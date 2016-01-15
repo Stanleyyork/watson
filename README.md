@@ -7,9 +7,9 @@
 * districtfive: new master branch (used to push to districtfive.herokuapp.com - current working heroku app)
 
 ## Team Members
-* Victoria Frambach
-* Adam Abeyta
-* Stanley Stevens
+* [Victoria Frambach](https://github.com/vframbach)
+* [Adam Abeyta] (https://github.com/abeytaadam)
+* [Stanley Stevens] (https://github.com/stanleyyork)
 
 ## Technologies Used
 
