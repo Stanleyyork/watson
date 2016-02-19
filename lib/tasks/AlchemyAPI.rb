@@ -40,7 +40,7 @@ class AlchemyAPI
 	@@BASE_URL = 'http://access.alchemyapi.com/calls'
 	
 	def initialize()
-		@apiKey = "53e680a44ab1ef750d3277ab1e8bbd0efe61f288"
+		@apiKey = "189f26e83318960f3460b1e00538825f585c94e9"
 	end
 
 	def sentiment(flavor, data, options = {})
@@ -145,7 +145,7 @@ end
 class AlchemyAPICall
 
 	def Call(user_id, channel_name, title, channel_url='')
-		puts "Call()"
+		puts " alchemy Call()"
 
 		begin
 

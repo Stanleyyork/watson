@@ -9,11 +9,12 @@ class PersonalityAPICall
 	# Personality.Call(6,"facebook", 2014, "Stanley's Facebook Account")
 
 	def Call(user_id, channel_name, title, channel_url="")
+		puts "personality call"
 		#user_id = 1 || 7 || etc. (user's id)
 		#channel_name = Twitter || Facebook || Book || etc. (channel to analyze)
 		#channel_url = "http://www.gutenberg.org/files/2701/2701.txt" - OPTIONAL unless Book
-		personality = WatsonAPIClient::PersonalityInsights.new(:user=>"fa30e7e1-7922-432c-ba1f-5bcde7c12e4d",
-		                                                   :password=>"GEyCx8gQf5kL",
+		personality = WatsonAPIClient::PersonalityInsights.new(:user=>"26458d91-2f2f-4090-8e30-0f811080b2ae",
+		                                                   :password=>"Xamt2riE0apx",
 		                                                   :verify_ssl=>OpenSSL::SSL::VERIFY_NONE)
 		
 		if(channel_name.downcase == "book")
